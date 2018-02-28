@@ -22,4 +22,6 @@ public interface CFDI extends CFD {
 
     ComprobanteBase getComprobante() throws Exception;
 
+    void addNamespace(String uri, String prefix);
+
 }

@@ -27,6 +27,7 @@ import java.io.PrintStream;
 import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.xml.XMLConstants;
@@ -100,6 +101,7 @@ public final class CFDv3 implements CFDI {
         this.document = copy(comprobante);
     }
 
+    @Override
     public void addNamespace(String uri, String prefix) {
         localPrefixes.put(uri, prefix);
     }
@@ -179,10 +181,31 @@ public final class CFDv3 implements CFDI {
         m.setProperty("com.sun.xml.bind.namespacePrefixMapper", new NamespacePrefixMapperImpl(localPrefixes));
         m.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv3.xsd");
+        m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, getSchemaLocation());
         byte[] xmlHeaderBytes = XML_HEADER.getBytes("UTF8");
         out.write(xmlHeaderBytes);
         m.marshal(document, out);
+    }
+
+    //Se implementó este método para que agregue los esquemas de manera automática (solo hay que enviar los contexts en el constructor)
+    //Se deben agregar todos los complementos en todas sus versiones (tambien a todas las versiones de CFDi según sus complementos)
+    private String getSchemaLocation() throws Exception {
+        String schema = "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd";
+        if (document != null && document.getComplemento() != null && document.getComplemento().getAny() != null) {
+            for (Object o : document.getComplemento().getAny()) {
+                if (o instanceof mx.bigdata.sat.cfdi.schema.TimbreFiscalDigital) {
+                    //El schema location debe de ir en el nodo de TFD, no en el de comprobante.
+//                    schema += " http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigital.xsd";
+                } else if (o instanceof mx.bigdata.sat.common.implocal.schema.ImpuestosLocales) {
+                    if(!schema.contains("http://www.sat.gob.mx/implocal http://www.sat.gob.mx/sitio_internet/cfd/implocal/implocal.xsd")) {
+                        schema += " http://www.sat.gob.mx/implocal http://www.sat.gob.mx/sitio_internet/cfd/implocal/implocal.xsd";
+                    }
+                } else {
+                    System.out.println("El complemento " + o + " aún no ha sido declarado.");
+                }
+            }
+        }
+        return schema;
     }
 
     @Override

@@ -85,11 +85,11 @@ public final class CFDv33Test {
 
     @Test
     public void testValidateVerifyWithFile() throws Exception {
-        CFDI33 cfd = CFDIFactory.load33(new File("resources/xml/cfdv33.xml"));
+        CFDI cfd = CFDIFactory.load33(new File("resources/xml/cfdv33.xml"));
         cfd.sellar(key, cert);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         cfd.guardar(baos);
-        CFDI33 cfd2 = CFDIFactory.load33(new ByteArrayInputStream(baos.toByteArray()));
+        CFDI cfd2 = CFDIFactory.load33(new ByteArrayInputStream(baos.toByteArray()));
         cfd2.validar();
         cfd2.verificar();
     }
