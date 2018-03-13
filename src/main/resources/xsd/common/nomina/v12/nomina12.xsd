@@ -283,7 +283,7 @@
                                 </xs:documentation>
                             </xs:annotation>
                         </xs:attribute>
-                        <xs:attribute name="CuentaBancaria" type="tdCFDI:t_CuentaBancaria" use="optional">
+                        <xs:attribute name="CuentaBancaria" type="xs:string" use="optional">
                             <xs:annotation>
                                 <xs:documentation>Atributo condicional para la expresión de la cuenta bancaria a 11
                                     posiciones o número de teléfono celular a 10 posiciones o número de tarjeta de
