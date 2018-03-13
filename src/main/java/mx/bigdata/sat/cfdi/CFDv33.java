@@ -62,7 +62,6 @@ public final class CFDv33 implements CFDI {
 
     private static final String[] XSD = new String[]{
             "/xsd/common/tdCFDI.xsd",
-            "/xsd/common/catCFDI.xsd",
             "/xsd/v33/cfdv33.xsd",
             "/xsd/v33/TimbreFiscalDigitalv11.xsd",
             "/xsd/common/ecc/v11/ecc11.xsd",
@@ -75,7 +74,6 @@ public final class CFDv33 implements CFDI {
             "/xsd/common/spei/spei.xsd",
             "/xsd/common/detallista/detallista.xsd",
             "/xsd/common/cfdiregistrofiscal/cfdiregistrofiscal.xsd",
-            "/xsd/common/nomina/catNomina.xsd",
             "/xsd/common/nomina/v12/nomina12.xsd",
             "/xsd/common/pagoenespecie/pagoenespecie.xsd",
             "/xsd/common/valesdedespensa/valesdedespensa.xsd",
@@ -88,9 +86,7 @@ public final class CFDv33 implements CFDI {
             "/xsd/common/certificadodedestruccion/certificadodedestruccion.xsd",
             "/xsd/common/obrasarteantiguedades/obrasarteantiguedades.xsd",
             "/xsd/common/ine/v11/INE11.xsd",
-            "/xsd/common/ComercioExterior/catComExt.xsd",
             "/xsd/common/ComercioExterior/v11/ComercioExterior11.xsd",
-            "/xsd/common/Pagos/catPagos.xsd",
             "/xsd/common/Pagos/Pagos10.xsd",
             "/xsd/common/iedu/iedu.xsd",
             "/xsd/common/ventavehiculos/v11/ventavehiculos11.xsd",

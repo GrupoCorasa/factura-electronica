@@ -61,7 +61,6 @@ public final class CFDv32 implements CFDI {
 
     private static final String[] XSD = new String[]{
             "/xsd/common/tdCFDI.xsd",
-            "/xsd/common/catCFDI.xsd",
             "/xsd/v32/cfdv32.xsd",
             "/xsd/v32/TimbreFiscalDigital.xsd",
             "/xsd/common/ecc/v10/ecc.xsd",
@@ -75,7 +74,6 @@ public final class CFDv32 implements CFDI {
             "/xsd/common/spei/spei.xsd",
             "/xsd/common/detallista/detallista.xsd",
             "/xsd/common/cfdiregistrofiscal/cfdiregistrofiscal.xsd",
-            "/xsd/common/nomina/catNomina.xsd",
             "/xsd/common/nomina/v11/nomina11.xsd",
             "/xsd/common/nomina/v12/nomina12.xsd",
             "/xsd/common/pagoenespecie/pagoenespecie.xsd",
@@ -89,7 +87,6 @@ public final class CFDv32 implements CFDI {
             "/xsd/common/certificadodedestruccion/certificadodedestruccion.xsd",
             "/xsd/common/obrasarteantiguedades/obrasarteantiguedades.xsd",
             "/xsd/common/ine/v11/INE11.xsd",
-            "/xsd/common/ComercioExterior/catComExt.xsd",
             "/xsd/common/ComercioExterior/v10/ComercioExterior10.xsd",
             "/xsd/common/ComercioExterior/v11/ComercioExterior11.xsd",
             "/xsd/common/iedu/iedu.xsd",
