@@ -62,8 +62,8 @@ La versión ligera, permite generar el XML capturando los campos como cadenas si
 ```
 
 ### Descarga las dependencias
- 1. Descarga la [última versión](http://search.maven.org/remotecontent?filepath=mx/bigdata/cfdi/cfdi-base/0.2.5/cfdi-base-0.2.5-bin.zip) de las librerías
- 2. Descomprime el archivo cfdi-base-0.2.5-bin.zip
+ 1. Descarga la [última versión](http://search.maven.org/remotecontent?filepath=mx/corasa/cfdi/cfdi-base/0.3.0/cfdi-base-0.3.0-bin.zip) de las librerías
+ 2. Descomprime el archivo cfdi-base-0.3.0-bin.zip
  3. Agrega todos los archivos jar al classpath de tu aplicación.
 
 ## Documentos
