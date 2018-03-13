@@ -85,3 +85,5 @@ la liga de New Issue y haremos todo lo posible por solucionarlo.
 Comenzó el proyecto pero eventualmente fue abandonado debido a su falta de tiempo. 
 
 La empresa Comercializadora Ortega y Accionistas, S.A. de C.V. tomó el proyecto ya iniciado por elmer para continuar con su mantenimiento y mejora.
+
+El proyecto se mantendrá OpenSource para poder continuar con la mejora colectiva del mismo.
