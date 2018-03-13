@@ -13,6 +13,11 @@ de la version 3.3 del CFDi.
 
 Este elemento tiene la funcionalidad necesaria para: validar, firmar, verificar y serializar CFDs.
 
+## Versión ligera
+
+La librería presenta una alternativa debido al alto consumo de memoria que requiere la versión estandar causada por los catálogos publicados por el SAT.
+La versión ligera, permite generar el XML capturando los campos como cadenas simples, y deshabilita la validación de los catálogos, por lo que si no tenemos extrema precaución en este sentido el PAC nos rechazará el archivo debido a que no es un valor del catálogo.
+
 ### Comprobante Fiscal Digital  (CFDv33):
 
 ```java
@@ -47,12 +52,6 @@ Este elemento tiene la funcionalidad necesaria para: validar, firmar, verificar 
 </dependency>
 ```
 
-## Versión ligera
-
-La librería presenta una alternativa debido al alto consumo de memoria que requiere la versión estandar causada por los catálogos publicados por el SAT.
-La versión ligera, permite generar el XML capturando los campos como cadenas simples, y deshabilita la validación de los catálogos, por lo que si no tenemos extrema precaución en este sentido el PAC nos rechazará el archivo debido a que no es un valor del catálogo.
-
-### Utiliza maven
 ```
 <dependency>
   <groupId>mx.corasa.cfdi</groupId>
@@ -62,40 +61,27 @@ La versión ligera, permite generar el XML capturando los campos como cadenas si
 ```
 
 ### Descarga las dependencias
- 1. Descarga la [última versión](http://search.maven.org/remotecontent?filepath=mx/corasa/cfdi/cfdi-base/0.3.0/cfdi-base-0.3.0-bin.zip) de las librerías
+
+ 1. Descarga la última versión de las librerías
  2. Descomprime el archivo cfdi-base-0.3.0-bin.zip
  3. Agrega todos los archivos jar al classpath de tu aplicación.
 
 ## Documentos
 
-* [Guia del usuario](https://github.com/bigdata-mx/factura-electronica/wiki/Guia-del-usuario)
-* [Documentación del API](http://factura-electronica.googlecode.com/svn/javadoc/index.html)
-* [Preguntas frecuentes](https://github.com/bigdata-mx/factura-electronica/wiki/Preguntas-frecuentes)
-* [Linea de Comandos](https://github.com/bigdata-mx/factura-electronica/wiki/Linea-de-comandos)
-* [Código fuente](https://github.com/bigdata-mx/factura-electronica/wiki/Compilar-el-codigo-fuente)
-
-Entérate de las mejoras y actualizaciones a las librerías a través de nuestra [cuenta de twitter](http://www.twitter.com/bigdata_mx).
-
-Valida tus CFD-I utilizando el [Validador de forma y sintaxis de Comprobantes Fiscales Digitales v3](https://www.consulta.sat.gob.mx/sicofi_web/moduloECFD_plus/ValidadorCFDI/Validador%20cfdi.html).
-
 Encuentra más información sobre los CFDI en las siguientes referencias las siguientes referencias:
 
-* [Comunicado de prensa](http://www.sat.gob.mx/sitio_internet/asistencia_contribuyente/principiantes/comprobantes_fiscales/66_19339.html)
- [03/09/2010]
-* [Nuevo esquema de facturación electrónica 2011](http://www.sat.gob.mx/sitio_internet/asistencia_contribuyente/principiantes/comprobantes_fiscales/66_19209.html)
- [08/10/2010]
-* [Información para proveedores de certificación de CFDI](http://www.sat.gob.mx/sitio_internet/asistencia_contribuyente/principiantes/comprobantes_fiscales/66_19069.html)
- [22/10/2010]
-* [Ejemplos y preguntas frecuentes de tecnología](http://www.sat.gob.mx/sitio_internet/asistencia_contribuyente/principiantes/comprobantes_fiscales/66_19430.html)
- [22/10/2010]
-* [Fundamento legal](http://www.sat.gob.mx/sitio_internet/asistencia_contribuyente/principiantes/comprobantes_fiscales/66_18889.html)
- [24/09/2010]
-* [Validadores y referencias para los CFD v2](http://www.sat.gob.mx/sitio_internet/e_sat/comprobantes_fiscales/15_15565.html)
- [19/07/2010]
+* [Anexo 20](http://www.sat.gob.mx/informacion_fiscal/factura_electronica/Paginas/Anexo_20_version3.3.aspx)
+* [Complementos SAT](http://www.sat.gob.mx/informacion_fiscal/factura_electronica/Paginas/complementos_factura_cfdi.aspx)
 
 ### Dudas y comentarios
 ¿Tienes algún problema o sugerencia de mejora?
 
-Busca la respuesta en la sección de [preguntas frecuentes](https://github.com/bigdata-mx/factura-electronica/wiki/Preguntas-frecuentes) o en la sección de 
-[seguimiento](https://github.com/bigdata-mx/factura-electronica/issues?state=open). Si no encuentras la respuesta, crea una nueva entrada utilizando 
+Busca la respuesta en la sección de [seguimiento](https://github.com/GrupoCorasa/factura-electronica/issues?state=open). Si no encuentras la respuesta, crea una nueva entrada utilizando 
 la liga de New Issue y haremos todo lo posible por solucionarlo.
+
+### Proyecto Original de:
+[elmer-garduno](https://github.com/elmer-garduno)
+
+Comenzó el proyecto pero eventualmente fue abandonado debido a su falta de tiempo. 
+
+La empresa Comercializadora Ortega y Accionistas, S.A. de C.V. tomó el proyecto ya iniciado por elmer para continuar con su mantenimiento y mejora.
