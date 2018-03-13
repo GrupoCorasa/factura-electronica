@@ -46,7 +46,7 @@ La versión ligera, permite generar el XML capturando los campos como cadenas si
 ### Utiliza maven
 ```
 <dependency>
-  <groupId>mx.corasa.cfdi</groupId>
+  <groupId>mx.grupocorasa.cfdi</groupId>
   <artifactId>cfdi-base</artifactId>
   <version>0.3.0</version>
 </dependency>
@@ -54,7 +54,7 @@ La versión ligera, permite generar el XML capturando los campos como cadenas si
 
 ```
 <dependency>
-  <groupId>mx.corasa.cfdi</groupId>
+  <groupId>mx.grupocorasa.cfdi</groupId>
   <artifactId>cfdi-base-lightweight</artifactId>
   <version>0.3.0</version>
 </dependency>
