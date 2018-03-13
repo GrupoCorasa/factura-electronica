@@ -3,7 +3,7 @@ factura-electronica
 
 Librería de componentes Java para el desarrollo de aplicaciones de Factura Electrónica (CFDI)
 
-[![Build Status](https://secure.travis-ci.org/bigdata-mx/factura-electronica.png)](http://travis-ci.org/bigdata-mx/factura-electronica)
+[![Build Status](https://secure.travis-ci.org/GrupoCorasa/factura-electronica.png)](http://travis-ci.org/GrupoCorasa/factura-electronica)
 
 ## Librería de componentes
 
