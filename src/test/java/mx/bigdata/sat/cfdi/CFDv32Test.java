@@ -16,6 +16,13 @@
  */
 package mx.bigdata.sat.cfdi;
 
+import mx.bigdata.sat.cfdi.examples.ExampleCFDv32Factory;
+import mx.bigdata.sat.cfdi.v32.schema.Comprobante;
+import mx.bigdata.sat.security.KeyLoaderEnumeration;
+import mx.bigdata.sat.security.factory.KeyLoaderFactory;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -23,14 +30,9 @@ import java.io.FileInputStream;
 import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
-import mx.bigdata.sat.cfdi.examples.ExampleCFDv32Factory;
-import mx.bigdata.sat.cfdi.v32.schema.Comprobante;
-import mx.bigdata.sat.security.KeyLoaderEnumeration;
-import mx.bigdata.sat.security.factory.KeyLoaderFactory;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 public final class CFDv32Test {
 
@@ -79,8 +81,7 @@ public final class CFDv32Test {
 
     @Test
     public void testValidateVerify() throws Exception {
-        CFDv32 cfd = new CFDv32(ExampleCFDv32Factory.createComprobante(),
-                "mx.bigdata.sat.cfdi.examples");
+        CFDv32 cfd = new CFDv32(ExampleCFDv32Factory.createComprobante(), "mx.bigdata.sat.cfdi.examples");
         cfd.sellar(key, cert);
         cfd.validar();
         cfd.verificar();
@@ -97,7 +98,7 @@ public final class CFDv32Test {
         cfd2.verificar();
     }
 
-//  @Test public void testValidateVerifyExternal() throws Exception {
+    //  @Test public void testValidateVerifyExternal() throws Exception {
 //    CFDv32 cfd = 
 //      new CFDv32(new FileInputStream("resources/xml/cfdv32.externo.xml"));
 //    cfd.validar();

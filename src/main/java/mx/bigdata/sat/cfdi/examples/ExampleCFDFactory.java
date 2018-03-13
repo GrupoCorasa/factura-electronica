@@ -15,23 +15,22 @@
  */
 package mx.bigdata.sat.cfdi.examples;
 
+import mx.bigdata.sat.cfdi.schema.Comprobante;
+import mx.bigdata.sat.cfdi.schema.Comprobante.*;
+import mx.bigdata.sat.cfdi.schema.Comprobante.Conceptos.Concepto;
+import mx.bigdata.sat.cfdi.schema.Comprobante.Impuestos.Traslados;
+import mx.bigdata.sat.cfdi.schema.Comprobante.Impuestos.Traslados.Traslado;
+import mx.bigdata.sat.cfdi.schema.ObjectFactory;
+import mx.bigdata.sat.cfdi.schema.TUbicacion;
+import mx.bigdata.sat.cfdi.schema.TUbicacionFiscal;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import javax.xml.bind.annotation.*;
-import mx.bigdata.sat.cfdi.schema.Comprobante;
-import mx.bigdata.sat.cfdi.schema.Comprobante.Addenda;
-import mx.bigdata.sat.cfdi.schema.Comprobante.Conceptos;
-import mx.bigdata.sat.cfdi.schema.Comprobante.Conceptos.Concepto;
-import mx.bigdata.sat.cfdi.schema.Comprobante.Emisor;
-import mx.bigdata.sat.cfdi.schema.Comprobante.Impuestos;
-import mx.bigdata.sat.cfdi.schema.Comprobante.Impuestos.Traslados;
-import mx.bigdata.sat.cfdi.schema.Comprobante.Impuestos.Traslados.Traslado;
-import mx.bigdata.sat.cfdi.schema.Comprobante.Receptor;
-import mx.bigdata.sat.cfdi.schema.ObjectFactory;
-import mx.bigdata.sat.cfdi.schema.TUbicacion;
-import mx.bigdata.sat.cfdi.schema.TUbicacionFiscal;
 
 public final class ExampleCFDFactory {
 
@@ -150,16 +149,14 @@ public final class ExampleCFDFactory {
 
     @XmlRootElement(name = "Company")
     private final static class Company {
-
         @XmlElement(name = "Transaction")
         Transaction transaction;
     }
 
     @XmlRootElement
     private final static class Transaction {
-
-        @SuppressWarnings("unused")
         @XmlAttribute(name = "PurchaseOrder")
         String purchaseOrder;
     }
+
 }

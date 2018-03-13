@@ -15,30 +15,20 @@
  */
 package mx.bigdata.sat.cfdi.examples;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
-
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante;
-import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Addenda;
-import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Complemento;
-import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Conceptos;
+import mx.bigdata.sat.cfdi.v32.schema.Comprobante.*;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Conceptos.Concepto;
-import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Emisor;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Emisor.RegimenFiscal;
-import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Impuestos;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Impuestos.Traslados;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Impuestos.Traslados.Traslado;
-import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Receptor;
 import mx.bigdata.sat.cfdi.v32.schema.ObjectFactory;
 import mx.bigdata.sat.cfdi.v32.schema.TUbicacion;
 import mx.bigdata.sat.cfdi.v32.schema.TUbicacionFiscal;
+
+import javax.xml.datatype.DatatypeConstants;
+import javax.xml.datatype.DatatypeFactory;
+import java.math.BigDecimal;
+import java.util.List;
 
 public final class ExampleCFDv32Factory {
 
@@ -46,8 +36,7 @@ public final class ExampleCFDv32Factory {
         ObjectFactory of = new ObjectFactory();
         Comprobante comp = of.createComprobante();
         comp.setVersion("3.2");
-        Date date = new GregorianCalendar(2012, 1, 6, 20, 38, 12).getTime();
-        comp.setFecha(date);
+        comp.setFecha(DatatypeFactory.newInstance().newXMLGregorianCalendar(2012, 2, 6, 20, 38, 12, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED));
         comp.setFormaDePago("PAGO EN UNA SOLA EXHIBICION");
         comp.setSubTotal(new BigDecimal("466.43"));
         comp.setTotal(new BigDecimal("488.50"));
@@ -58,7 +47,6 @@ public final class ExampleCFDv32Factory {
         comp.setReceptor(createReceptor(of));
         comp.setConceptos(createConceptos(of));
         comp.setImpuestos(createImpuestos(of));
-        comp.setAddenda(createAddenda(of));
         comp.setComplemento(createComplemento(of));
         return comp;
     }
@@ -158,27 +146,4 @@ public final class ExampleCFDv32Factory {
         return imps;
     }
 
-    private static Addenda createAddenda(ObjectFactory of) {
-        Addenda addenda = of.createComprobanteAddenda();
-        Company2 c = new Company2();
-        c.transaction = new Transaction2();
-        c.transaction.purchaseOrder = "4600364283";
-        addenda.getAny().add(c);
-        return addenda;
-    }
-
-    @XmlRootElement(name = "Company2")
-    private final static class Company2 {
-
-        @XmlElement(name = "Transaction2")
-        Transaction2 transaction;
-    }
-
-    @XmlRootElement
-    private final static class Transaction2 {
-
-        @SuppressWarnings("unused")
-        @XmlAttribute(name = "PurchaseOrder2")
-        String purchaseOrder;
-    }
 }

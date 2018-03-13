@@ -67,7 +67,6 @@
     <xsl:for-each select="./pago10:Impuestos">
       <xsl:apply-templates select="."/>
     </xsl:for-each>
-
   </xsl:template>
 
   <xsl:template match="pago10:DoctoRelacionado">

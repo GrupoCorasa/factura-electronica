@@ -12,7 +12,7 @@
   </xs:simpleType>
   <xs:simpleType name="t_Importe">
     <xs:annotation>
-      <xs:documentation>Tipo definido para expresar importes numéricos con fracción hasta seis decimales. El valor se redondea de acuerdo con el número de decimales que soporta la moneda.  No se permiten valores negativos.</xs:documentation>
+      <xs:documentation>Tipo definido para expresar importes numéricos con fracción hasta seis decimales. No se permiten valores negativos.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:decimal">
       <xs:fractionDigits value="6"/>

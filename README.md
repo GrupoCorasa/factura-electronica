@@ -5,31 +5,18 @@ Librería de componentes Java para el desarrollo de aplicaciones de Factura Elec
 
 [![Build Status](https://secure.travis-ci.org/bigdata-mx/factura-electronica.png)](http://travis-ci.org/bigdata-mx/factura-electronica)
 
-
 ## Librería de componentes
 
 La librería presenta una interfaz muy simple centrada en el Comprobante Fiscal
-Digital (CFD), las clases principales son `CFDv33` y `CFDv32` que tienen la lógica 
-correspondiente a las versiones 3.3 y 3.2 del CFDi respectivamente.
+Digital (CFD), la clase principal es `CFDv33` que tiene la lógica 
+de la version 3.3 del CFDi.
 
-Cada uno de estos elementos tiene la funcionalidad necesaria para: validar, firmar, verificar y serializar CFDs.
+Este elemento tiene la funcionalidad necesaria para: validar, firmar, verificar y serializar CFDs.
 
 ### Comprobante Fiscal Digital  (CFDv33):
 
 ```java
     CFDv33 cfd = new CFDv33(new FileInputStream(file)); // Crea un CFD a partir de un InputStream
-    Key key = KeyLoader.loadPKCS8PrivateKey(new FileInputStream(keyfile),  password);
-    Certificate cert = KeyLoader.loadX509Certificate(new FileInputStream(certFile));
-    Comprobante sellado = cfd.sellarComprobante(key, cert); // Firma el CFD y obtiene un Comprobante sellado
-    cfd.validar(); // Valida el XML, que todos los elementos estén presentes
-    cfd.verificar(); // Verifica un CFD ya firmado
-    cfd.guardar(System.out); // Serializa el CFD a un OutputStream
-```
-
-### Comprobante Fiscal Digital por Internet (CFDv32):
-
-```java
-    CFDv32 cfd = new CFDv32(new FileInputStream(file)); // Crea un CFD a partir de un InputStream
     Key key = KeyLoader.loadPKCS8PrivateKey(new FileInputStream(keyfile),  password);
     Certificate cert = KeyLoader.loadX509Certificate(new FileInputStream(certFile));
     Comprobante sellado = cfd.sellarComprobante(key, cert); // Firma el CFD y obtiene un Comprobante sellado
@@ -49,24 +36,27 @@ Cada uno de estos elementos tiene la funcionalidad necesaria para: validar, firm
     tfd.guardar(System.out); // Serializa el CFD timbrado a un OutputStream
 ```
 
-### Timbre Fiscal Digital (TFDv1):
-
-```java
-    CFDv32 cfd = new CFDv32(new FileInputStream(file));// Crea un CFD a partir de un InputStream
-    TFDv1 tfd = new TFDv1(cfd); // Crea un TDF a partir del CDF
-    PrivateKey key = KeyLoader.loadPKCS8PrivateKey(new FileInputStream(keyfile), password);
-    tfd.timbrar(key); // Timbra el CDF
-    tfd.verificar(cert); // Verifica el TDF
-    tfd.guardar(System.out); // Serializa el CFD timbrado a un OutputStream
-``
-
 ## Instalación
 
 ### Utiliza maven
 ```
 <dependency>
-  <groupId>mx.bigdata.cfdi</groupId>
+  <groupId>mx.corasa.cfdi</groupId>
   <artifactId>cfdi-base</artifactId>
+  <version>0.3.0</version>
+</dependency>
+```
+
+## Versión ligera
+
+La librería presenta una alternativa debido al alto consumo de memoria que requiere la versión estandar causada por los catálogos publicados por el SAT.
+La versión ligera, permite generar el XML capturando los campos como cadenas simples, y deshabilita la validación de los catálogos, por lo que si no tenemos extrema precaución en este sentido el PAC nos rechazará el archivo debido a que no es un valor del catálogo.
+
+### Utiliza maven
+```
+<dependency>
+  <groupId>mx.corasa.cfdi</groupId>
+  <artifactId>cfdi-base-lightweight</artifactId>
   <version>0.3.0</version>
 </dependency>
 ```
