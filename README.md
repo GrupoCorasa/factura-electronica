@@ -48,7 +48,7 @@ La versión ligera, permite generar el XML capturando los campos como cadenas si
 <dependency>
   <groupId>mx.grupocorasa.cfdi</groupId>
   <artifactId>cfdi-base</artifactId>
-  <version>0.3.3</version>
+  <version>0.3.0</version>
 </dependency>
 ```
 
@@ -56,14 +56,14 @@ La versión ligera, permite generar el XML capturando los campos como cadenas si
 <dependency>
   <groupId>mx.grupocorasa.cfdi</groupId>
   <artifactId>cfdi-base-lightweight</artifactId>
-  <version>0.3.3</version>
+  <version>0.3.0</version>
 </dependency>
 ```
 
 ### Descarga las dependencias
 
  1. Descarga la última versión de las librerías
- 2. Descomprime el archivo cfdi-base-0.3.3-bin.zip
+ 2. Descomprime el archivo cfdi-base-0.3.0-bin.zip
  3. Agrega todos los archivos jar al classpath de tu aplicación.
 
 ## Documentos
