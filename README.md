@@ -62,7 +62,7 @@ La versión ligera, permite generar el XML capturando los campos como cadenas si
 
 ### Descarga las dependencias
 
- 1. Descarga la última versión de las librerías
+ 1. [Descarga la última versión de las librerías](https://oss.sonatype.org/content/groups/public/mx/grupocorasa/cfdi/cfdi-base-lightweight/3.3.1/cfdi-base-lightweight-3.3.1.jar)
  2. Descomprime el archivo cfdi-base-0.3.0-bin.zip
  3. Agrega todos los archivos jar al classpath de tu aplicación.
 
