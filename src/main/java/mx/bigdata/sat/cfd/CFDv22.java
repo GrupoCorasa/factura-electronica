@@ -28,10 +28,7 @@ import java.security.Signature;
 import java.security.SignatureException;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -85,6 +82,7 @@ public final class CFDv22 implements CFD2 {
 
     private final static Joiner JOINER = Joiner.on(':');
 
+    private static Map<List<String>, JAXBContext> contextMap = new HashMap<>();
     private final JAXBContext context;
 
     private TransformerFactory tf;
@@ -276,7 +274,11 @@ public final class CFDv22 implements CFD2 {
 
     private static JAXBContext getContext(String[] contexts) throws Exception {
         List<String> ctx = Lists.asList(BASE_CONTEXT, contexts);
-        return JAXBContext.newInstance(JOINER.join(ctx));
+        if(!contextMap.containsKey(ctx)) {
+            JAXBContext context = JAXBContext.newInstance(JOINER.join(ctx));
+            contextMap.put(ctx, context);
+        }
+        return contextMap.get(ctx);
     }
 
     private static Comprobante load(InputStream in, String... contexts) throws Exception {

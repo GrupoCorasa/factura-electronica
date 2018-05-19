@@ -21,10 +21,7 @@ import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.cert.X509Certificate;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -65,11 +62,14 @@ public final class TFDv11c33 {
     private static final JAXBContext CONTEXT = createContext();
 
     private static JAXBContext createContext() {
-        try {
-            return JAXBContext.newInstance("mx.bigdata.sat.cfdi.v33.schema");
-        } catch (JAXBException e) {
-            throw new Error(e);
+        if(CONTEXT==null) {
+            try {
+                return JAXBContext.newInstance("mx.bigdata.sat.cfdi.v33.schema");
+            } catch (JAXBException e) {
+                throw new Error(e);
+            }
         }
+        return CONTEXT;
     }
 
     private final ComprobanteBase document;
