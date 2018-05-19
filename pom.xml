@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>mx.grupocorasa.cfdi</groupId>
     <artifactId>cfdi-base</artifactId>
-    <version>3.3.1</version>
+    <version>3.3.2</version>
     <packaging>jar</packaging>
     <name>cfdi-base</name>
     <url>https://github.com/GrupoCorasa/factura-electronica</url>
