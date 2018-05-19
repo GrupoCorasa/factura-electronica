@@ -57,11 +57,14 @@ public final class TFDv1c32 {
     private static final JAXBContext CONTEXT = createContext();
 
     private static JAXBContext createContext() {
-        try {
-            return JAXBContext.newInstance("mx.bigdata.sat.cfdi.schema");
-        } catch (JAXBException e) {
-            throw new Error(e);
+        if(CONTEXT==null) {
+            try {
+                return JAXBContext.newInstance("mx.bigdata.sat.cfdi.schema");
+            } catch (JAXBException e) {
+                throw new Error(e);
+            }
         }
+        return CONTEXT;
     }
 
     private final ComprobanteBase document;

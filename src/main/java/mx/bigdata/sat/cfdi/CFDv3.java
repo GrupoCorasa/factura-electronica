@@ -28,6 +28,7 @@ import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.xml.XMLConstants;
@@ -81,6 +82,7 @@ public final class CFDv3 implements CFDI {
 
     private final static Joiner JOINER = Joiner.on(':');
 
+    private static Map<List<String>, JAXBContext> contextMap = new HashMap<>();
     private final JAXBContext context;
 
     public static final ImmutableMap<String, String> PREFIXES = ImmutableMap.of("http://www.w3.org/2001/XMLSchema-instance", "xsi", "http://www.sat.gob.mx/cfd/3", "cfdi", "http://www.sat.gob.mx/TimbreFiscalDigital", "tfd");
@@ -304,7 +306,11 @@ public final class CFDv3 implements CFDI {
 
     private static JAXBContext getContext(String[] contexts) throws Exception {
         List<String> ctx = Lists.asList(BASE_CONTEXT, contexts);
-        return JAXBContext.newInstance(JOINER.join(ctx));
+        if(!contextMap.containsKey(ctx)) {
+            JAXBContext context = JAXBContext.newInstance(JOINER.join(ctx));
+            contextMap.put(ctx, context);
+        }
+        return contextMap.get(ctx);
     }
 
     private static Comprobante load(InputStream source, String... contexts) throws Exception {
