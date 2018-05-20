@@ -48,7 +48,7 @@ La versión ligera, permite generar el XML capturando los campos como cadenas si
 <dependency>
   <groupId>mx.grupocorasa.cfdi</groupId>
   <artifactId>cfdi-base</artifactId>
-  <version>3.3.1</version>
+  <version>3.3.2</version>
 </dependency>
 ```
 
@@ -56,7 +56,7 @@ La versión ligera, permite generar el XML capturando los campos como cadenas si
 <dependency>
   <groupId>mx.grupocorasa.cfdi</groupId>
   <artifactId>cfdi-base-lightweight</artifactId>
-  <version>3.3.1</version>
+  <version>3.3.2</version>
 </dependency>
 ```
 
