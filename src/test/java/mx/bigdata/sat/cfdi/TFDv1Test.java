@@ -16,6 +16,13 @@
  */
 package mx.bigdata.sat.cfdi;
 
+import mx.bigdata.sat.cfdi.examples.ExampleCFDFactory;
+import mx.bigdata.sat.security.KeyLoaderEnumeration;
+import mx.bigdata.sat.security.factory.KeyLoaderFactory;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -25,13 +32,8 @@ import java.security.cert.X509Certificate;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.UUID;
-import mx.bigdata.sat.cfdi.examples.ExampleCFDFactory;
-import mx.bigdata.sat.security.KeyLoaderEnumeration;
-import mx.bigdata.sat.security.factory.KeyLoaderFactory;
+
 import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 public final class TFDv1Test {
 
@@ -50,24 +52,24 @@ public final class TFDv1Test {
 
         key = KeyLoaderFactory.createInstance(
                 KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
-                new FileInputStream("resources/certs/CSD01_AAA010101AAA.key"),
+                new FileInputStream("resources/certs/CSD_HERMANOS_ANZURES_ÑARVAEZ_SA_DE_CV_HAÑ930228SM9_20190617_132920.key"),
                 "12345678a"
         ).getKey();
 
         cert = KeyLoaderFactory.createInstance(
                 KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
-                new FileInputStream("resources/certs/CSD01_AAA010101AAA.cer")
+                new FileInputStream("resources/certs/CSD_HERMANOS_ANZURES_+æARVAEZ_SA_DE_CV_HA+æ930228SM9_20190617_132920s.cer")
         ).getKey();
 
         pacKey = KeyLoaderFactory.createInstance(
                 KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
-                new FileInputStream("resources/certs/CSD02_AAA010101AAA.key"),
+                new FileInputStream("resources/certs/CSD_ESCUELA_WILSON_ESQUIVEL_SA_DE_CV__EWE1709045U0_20190617_132205.key"),
                 "12345678a"
         ).getKey();
 
         pacCert = KeyLoaderFactory.createInstance(
                 KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
-                new FileInputStream("resources/certs/CSD02_AAA010101AAA.cer")
+                new FileInputStream("resources/certs/CSD_ESCUELA_WILSON_ESQUIVEL_SA_DE_CV__EWE1709045U0_20190617_132205s.cer")
         ).getKey();
     }
 
@@ -83,14 +85,14 @@ public final class TFDv1Test {
 
     @Test
     public void testOriginalString() throws Exception {
-        String cadena = "||1.0|843a05d7-207d-4adc-91e8-bda7175bcda3|2011-02-07T08:51:00|U0yTrfIKAllJtmASZQlgdzMeJLStjN+7nXyFHJ9Zk02LhT6BV4PD3qN2NZkuQQ27QFh8eluAxZ7BKY8qROyiIu6bi3h0ClZxgXdrHNxicDQVfQdo7EmqSVqj/teQcJdbZhjEmk4DABxTjPzk3vrktsj29DK/Fg1G/qYqCb5T+xY=|20001000000200001429||";
+        String cadena = "||1.0|843a05d7-207d-4adc-91e8-bda7175bcda3|2011-02-07T08:51:00|OD+eJsZEagd+iScEBGtbs85jyLeUfKUiujGWM8VF5X16nW0Ky3x2AwGS0PUz8UbWLhd3RUzl8EsUW/JbNKpAOvXH4rnpmOLkvn7c2M94fhmhQ9jKV3wF8yBDUvd2gK/99UlMEM8gEM5JlhbpOJPhktK0hRm0U/PDqgaUYO2V/MOOV3DUzRD+XcYQfakoOR/voYOenMUC9wht9GhiL5XuIyWClAmxYlhTb8CICoTOz3Q9OdHNaZUadHr6EJ1IriwF1OO0qKv+AV810mE68lGltd8gR6nKP1zCJqYn0Pq1LnQZurNwoxUvUh29bVwmh2PEkUOTob8uEbGoYssmnYQryQ==|30001000000400002450||";
         assertEquals(cadena, tfd.getCadenaOriginal());
     }
 
     @Test
     public void testStamp() throws Exception {
         tfd.timbrar(pacKey);
-        String signature = "gRWA9WrwQlxo7gRL+ROBL0R+Q5YKyGnG9bcd5Fjgwokh/bbDr5e6IWoFEw3SAwtUef9ePnxmEHxx3CVu16IL7r38f1qmIfa2dIGgeRNsGeux/IvFXkTJ+LPdQlClybnso1Dv3GqiLZDiRu1heATPP5TZgF0xLK7DeHkU6RJBIYQ=";
+        String signature = "RPCfTkN87ifVCAswDQ65qkug10vA4hr6Hbo2gdtbkQP4gie32Mvuq003jef4dBOt87ykkjPeMc4f0lPjrGTtaFtjonAUAZOHUx4507DrRNHFPuwg96/lGS5OTVbiD24dJY6bKQNgxvg5vGs6oJ/nVJxiZ6pbwTXrj48+t9NXjvprWtiHBQoIswSgSAP2tx4vVdKNTFo43XCEws7WtphXf5+pqQcL+NWxp1En85wDL/pT7UbszJZhqSz/NkAfOSeXGaAgcQZDkn+UL92DinXkxnrAqYaNLlB7wUzT2BY0qcESkUV+3mkCTm41/7tJSCOUmQN2Ocoe5dHOYlMU7ZdP0w==";
         assertEquals(signature, tfd.getTimbre().getSelloSAT());
         BigInteger bi = pacCert.getSerialNumber();
         String certificateNum = new String(bi.toByteArray());

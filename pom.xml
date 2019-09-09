@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>mx.grupocorasa.cfdi</groupId>
     <artifactId>cfdi-base-lightweight</artifactId>
-    <version>3.3.2</version>
+    <version>3.3.3</version>
     <packaging>jar</packaging>
     <name>cfdi-base</name>
     <url>https://github.com/GrupoCorasa/factura-electronica</url>
@@ -648,8 +648,8 @@
                             <goal>xjc</goal>
                         </goals>
                         <configuration>
-                            <packageName>mx.bigdata.sat.ce_catalogo_cuentas.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/ce_catalogo_cuentas</schemaDirectory>
+                            <packageName>mx.bigdata.sat.ce.v11.ce_catalogo_cuentas.schema</packageName>
+                            <schemaDirectory>src/main/resources/xsd/ce/v11/ce_catalogo_cuentas</schemaDirectory>
                             <bindingDirectory>src/main/resources</bindingDirectory>
                             <outputDirectory>${project.build.directory}/generated-sources/xjc100</outputDirectory>
                             <staleFile>${project.build.directory}/generated-sources/xjc100/.staleFlag</staleFile>
@@ -662,8 +662,8 @@
                             <goal>xjc</goal>
                         </goals>
                         <configuration>
-                            <packageName>mx.bigdata.sat.ce_balanza_comprobacion.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/ce_balanza_comprobacion</schemaDirectory>
+                            <packageName>mx.bigdata.sat.ce.v11.ce_balanza_comprobacion.schema</packageName>
+                            <schemaDirectory>src/main/resources/xsd/ce/v11/ce_balanza_comprobacion</schemaDirectory>
                             <bindingDirectory>src/main/resources</bindingDirectory>
                             <outputDirectory>${project.build.directory}/generated-sources/xjc101</outputDirectory>
                             <staleFile>${project.build.directory}/generated-sources/xjc101/.staleFlag</staleFile>
@@ -676,11 +676,95 @@
                             <goal>xjc</goal>
                         </goals>
                         <configuration>
-                            <packageName>mx.bigdata.sat.ce_polizas_periodo.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/ce_polizas_periodo</schemaDirectory>
+                            <packageName>mx.bigdata.sat.ce.v11.ce_polizas_periodo.schema</packageName>
+                            <schemaDirectory>src/main/resources/xsd/ce/v11/ce_polizas_periodo</schemaDirectory>
                             <bindingDirectory>src/main/resources</bindingDirectory>
                             <outputDirectory>${project.build.directory}/generated-sources/xjc102</outputDirectory>
                             <staleFile>${project.build.directory}/generated-sources/xjc102/.staleFlag</staleFile>
+                            <extension>true</extension>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>schema103-xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <packageName>mx.bigdata.sat.ce.v11.ce_auxiliar_ctas.schema</packageName>
+                            <schemaDirectory>src/main/resources/xsd/ce/v11/ce_auxiliar_ctas</schemaDirectory>
+                            <bindingDirectory>src/main/resources</bindingDirectory>
+                            <outputDirectory>${project.build.directory}/generated-sources/xjc103</outputDirectory>
+                            <staleFile>${project.build.directory}/generated-sources/xjc103/.staleFlag</staleFile>
+                            <extension>true</extension>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>schema104-xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <packageName>mx.bigdata.sat.ce.v11.ce_sello_digital_cont_elec.schema</packageName>
+                            <schemaDirectory>src/main/resources/xsd/ce/v11/ce_sello_digital_cont_elec</schemaDirectory>
+                            <bindingDirectory>src/main/resources</bindingDirectory>
+                            <outputDirectory>${project.build.directory}/generated-sources/xjc104</outputDirectory>
+                            <staleFile>${project.build.directory}/generated-sources/xjc104/.staleFlag</staleFile>
+                            <extension>true</extension>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>schema105-xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <packageName>mx.bigdata.sat.ce.v13.ce_auxiliar_folios.schema</packageName>
+                            <schemaDirectory>src/main/resources/xsd/ce/v13/ce_auxiliar_folios</schemaDirectory>
+                            <bindingDirectory>src/main/resources</bindingDirectory>
+                            <outputDirectory>${project.build.directory}/generated-sources/xjc105</outputDirectory>
+                            <staleFile>${project.build.directory}/generated-sources/xjc105/.staleFlag</staleFile>
+                            <extension>true</extension>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>schema100-13-xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <packageName>mx.bigdata.sat.ce.v13.ce_catalogo_cuentas.schema</packageName>
+                            <schemaDirectory>src/main/resources/xsd/ce/v13/ce_catalogo_cuentas</schemaDirectory>
+                            <bindingDirectory>src/main/resources</bindingDirectory>
+                            <outputDirectory>${project.build.directory}/generated-sources/xjc100-13</outputDirectory>
+                            <staleFile>${project.build.directory}/generated-sources/xjc100-13/.staleFlag</staleFile>
+                            <extension>true</extension>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>schema101-13-xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <packageName>mx.bigdata.sat.ce.v13.ce_balanza_comprobacion.schema</packageName>
+                            <schemaDirectory>src/main/resources/xsd/ce/v13/ce_balanza_comprobacion</schemaDirectory>
+                            <bindingDirectory>src/main/resources</bindingDirectory>
+                            <outputDirectory>${project.build.directory}/generated-sources/xjc101-13</outputDirectory>
+                            <staleFile>${project.build.directory}/generated-sources/xjc101-13/.staleFlag</staleFile>
+                            <extension>true</extension>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>schema102-13-xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <packageName>mx.bigdata.sat.ce.v13.ce_polizas_periodo.schema</packageName>
+                            <schemaDirectory>src/main/resources/xsd/ce/v13/ce_polizas_periodo</schemaDirectory>
+                            <bindingDirectory>src/main/resources</bindingDirectory>
+                            <outputDirectory>${project.build.directory}/generated-sources/xjc102-13</outputDirectory>
+                            <staleFile>${project.build.directory}/generated-sources/xjc102-13/.staleFlag</staleFile>
                             <extension>true</extension>
                         </configuration>
                     </execution>
