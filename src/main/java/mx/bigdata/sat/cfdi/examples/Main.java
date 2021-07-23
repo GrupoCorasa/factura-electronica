@@ -32,13 +32,13 @@ public final class Main {
 
         PrivateKey key = KeyLoaderFactory.createInstance(
                 KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
-                new FileInputStream("resources/certs/CSD_Prueba_CFDI_LAN8507268IA.key"),
+                new FileInputStream("resources/certs/CSD_S_&_SOFTWARE_S.A_DE_C.V_S&S051221SE2_20190627_135134.key"),
                 "12345678a"
         ).getKey();
 
         X509Certificate cert = KeyLoaderFactory.createInstance(
                 KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
-                new FileInputStream("resources/certs/CSD_Prueba_CFDI_LAN8507268IA.cer")
+                new FileInputStream("resources/certs/CSD_S_&_SOFTWARE_S.A_DE_C.V_S&S051221SE2_20190627_135134s.cer")
         ).getKey();
 
         Comprobante sellado = cfd.sellarComprobante(key, cert);

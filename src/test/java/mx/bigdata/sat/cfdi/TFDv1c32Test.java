@@ -16,6 +16,13 @@
  */
 package mx.bigdata.sat.cfdi;
 
+import mx.bigdata.sat.cfdi.examples.ExampleCFDv32Factory;
+import mx.bigdata.sat.security.KeyLoaderEnumeration;
+import mx.bigdata.sat.security.factory.KeyLoaderFactory;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import java.io.FileInputStream;
 import java.math.BigInteger;
 import java.security.PrivateKey;
@@ -23,13 +30,8 @@ import java.security.cert.X509Certificate;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.UUID;
-import mx.bigdata.sat.cfdi.examples.ExampleCFDv32Factory;
-import mx.bigdata.sat.security.KeyLoaderEnumeration;
-import mx.bigdata.sat.security.factory.KeyLoaderFactory;
+
 import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 public final class TFDv1c32Test {
 
@@ -47,24 +49,24 @@ public final class TFDv1c32Test {
     public static void loadKeys() throws Exception {
         key = KeyLoaderFactory.createInstance(
                 KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
-                new FileInputStream("resources/certs/CSD01_AAA010101AAA.key"),
+                new FileInputStream("resources/certs/CSD_HERMANOS_ANZURES_ÑARVAEZ_SA_DE_CV_HAÑ930228SM9_20190617_132920.key"),
                 "12345678a"
         ).getKey();
 
         cert = KeyLoaderFactory.createInstance(
                 KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
-                new FileInputStream("resources/certs/CSD01_AAA010101AAA.cer")
+                new FileInputStream("resources/certs/CSD_HERMANOS_ANZURES_+æARVAEZ_SA_DE_CV_HA+æ930228SM9_20190617_132920s.cer")
         ).getKey();
 
         pacKey = KeyLoaderFactory.createInstance(
                 KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
-                new FileInputStream("resources/certs/CSD02_AAA010101AAA.key"),
+                new FileInputStream("resources/certs/CSD_ESCUELA_WILSON_ESQUIVEL_SA_DE_CV__EWE1709045U0_20190617_132205.key"),
                 "12345678a"
         ).getKey();
 
         pacCert = KeyLoaderFactory.createInstance(
                 KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
-                new FileInputStream("resources/certs/CSD02_AAA010101AAA.cer")
+                new FileInputStream("resources/certs/CSD_ESCUELA_WILSON_ESQUIVEL_SA_DE_CV__EWE1709045U0_20190617_132205s.cer")
         ).getKey();
     }
 
@@ -80,14 +82,14 @@ public final class TFDv1c32Test {
 
     @Test
     public void testOriginalString() throws Exception {
-        String cadena = "||1.0|843a05d7-207d-4adc-91e8-bda7175bcda3|2011-02-07T08:51:00|RgcO+YOP97X9un4x+TDsJNoQPkfNg2/iyywDGpdkhN+n6grEJ4J6+eLSgQYK4MakykrlN1QB6CSf5H1M0NN4w1vQ5uFqPiopTRzgqg/e44cD/m6WoXANbi/3w1xG31BTNTgTXOsBkey7OzGF7c24rd7soDWZngkqrU6eEjE0DBw=|20001000000200001429||";
+        String cadena = "||1.0|843a05d7-207d-4adc-91e8-bda7175bcda3|2011-02-07T08:51:00|g0V1hv3unUXh6Hmg4T6G9se5Mx8bY4zoST0SLyhbUEG1tvt0M+1OWLF5Un6YVXXxm0AiW+U/9VIE58Wx4Lsa3LJ0wYDTONB4xPGIuEHxeI88ZcHDDwOGMA/8nugpquPV1it94eh8GVO9vogTxUgS29H/yWbACbwHwHQdsxklibxrhUH+Z2EwA0R/g+3iwRTEpVFduDM0o3J3d4ixPi+aPixVHyJxIZwO1l87B3mMd9CvMgn/y+bG7iP+xF9b6dcDmNFLYvBUInKp52ZaciYhfJVCEiqxKmZ2mPvdI/fNT+N4hpPZEq7XWDP25hGXcCXyrogjMds9tP4lsc6iLahlkA==|30001000000400002450||";
         assertEquals(cadena, tfd.getCadenaOriginal());
     }
 
     @Test
     public void testStamp() throws Exception {
         tfd.timbrar(pacKey);
-        String signature = "m27F+JMvdd/e8YwK80a5tYqeB/zmCJD5CZBlE2S2qLorG9lYoZylShXD7XxScfjofzCpGenSY9+7BcC7uSjZYbg3JFo+WRk9Y09Y012KPlkorbWfapY2i7UR5wZVftx3l+ohL2bmMJTJJxf4dbOXYj53OWIQ5u6WKo9mPmzCTSk=";
+        String signature = "FiUiTobAFdHJ4xDNnpBMlROTYYwqxKiKus7+tNU7AFYub7wHH4zGh8QTBOR30z+Y0J74q9lC2t4+OILt2AfhEqpNAeVtZ2bsVF5miES/uhN8jk2yoy6c3KqyLeQOooBA2bXh/lIVfwaxLYhSwLoXFN8hBf0/Tl2PLo7iEnwu+3zy2pBfRET9wKedIPNhzn++n7mtAXcPhxFqaJVugRZZpVl+8OjXBU6+7+HqDlxNLXr8B0p96zJSI6PI0k8ltG0Fp3vOrHf0w9xMrBGjJUIrk4XuQpfcYY+LHf9cWRN6eMVbG1vgZ6k6JUOKFBOQu50BXS5arUeig15Lz363aypqbw==";
         assertEquals(signature, tfd.getTimbre().getSelloSAT());
         BigInteger bi = pacCert.getSerialNumber();
         String certificateNum = new String(bi.toByteArray());
@@ -99,13 +101,5 @@ public final class TFDv1c32Test {
         tfd.timbrar(pacKey);
         tfd.validar();
         tfd.verificar();
-    }
-
-    @Test
-    public void testValidateVerifyWithFile() throws Exception {
-        // CFDv32 cfd2 = new CFDv32(new FileInputStream("resources/xml/CFDI1.xml"));
-        // TFDv1c32 tfd2 = new TFDv1c32(cfd2, pacCert);
-        // tfd2.validar();
-        // tfd2.verificar();
     }
 }
