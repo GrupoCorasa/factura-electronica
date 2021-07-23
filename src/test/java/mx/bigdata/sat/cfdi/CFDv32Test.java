@@ -45,13 +45,13 @@ public final class CFDv32Test {
 
         key = KeyLoaderFactory.createInstance(
                 KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
-                new FileInputStream("resources/certs/CSD01_AAA010101AAA.key"),
+                new FileInputStream("resources/certs/CSD_HERMANOS_ANZURES_ÑARVAEZ_SA_DE_CV_HAÑ930228SM9_20190617_132920.key"),
                 "12345678a"
         ).getKey();
 
         cert = KeyLoaderFactory.createInstance(
                 KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
-                new FileInputStream("resources/certs/CSD01_AAA010101AAA.cer")
+                new FileInputStream("resources/certs/CSD_HERMANOS_ANZURES_+æARVAEZ_SA_DE_CV_HA+æ930228SM9_20190617_132920s.cer")
         ).getKey();
 
     }
@@ -69,9 +69,9 @@ public final class CFDv32Test {
         CFDv32 cfd = new CFDv32(ExampleCFDv32Factory.createComprobante(),
                 "mx.bigdata.sat.cfdi.examples");
         cfd.sellar(key, cert);
-        String signature = "RgcO+YOP97X9un4x+TDsJNoQPkfNg2/iyywDGpdkhN+n6grEJ4J6+eLSgQYK4MakykrlN1QB6CSf5H1M0NN4w1vQ5uFqPiopTRzgqg/e44cD/m6WoXANbi/3w1xG31BTNTgTXOsBkey7OzGF7c24rd7soDWZngkqrU6eEjE0DBw=";
+        String signature = "g0V1hv3unUXh6Hmg4T6G9se5Mx8bY4zoST0SLyhbUEG1tvt0M+1OWLF5Un6YVXXxm0AiW+U/9VIE58Wx4Lsa3LJ0wYDTONB4xPGIuEHxeI88ZcHDDwOGMA/8nugpquPV1it94eh8GVO9vogTxUgS29H/yWbACbwHwHQdsxklibxrhUH+Z2EwA0R/g+3iwRTEpVFduDM0o3J3d4ixPi+aPixVHyJxIZwO1l87B3mMd9CvMgn/y+bG7iP+xF9b6dcDmNFLYvBUInKp52ZaciYhfJVCEiqxKmZ2mPvdI/fNT+N4hpPZEq7XWDP25hGXcCXyrogjMds9tP4lsc6iLahlkA==";
         assertEquals(signature, cfd.getComprobante().getSello());
-        String certificate = "MIIEYTCCA0mgAwIBAgIUMjAwMDEwMDAwMDAyMDAwMDE0MjgwDQYJKoZIhvcNAQEFBQAwggFcMRowGAYDVQQDDBFBLkMuIDIgZGUgcHJ1ZWJhczEvMC0GA1UECgwmU2VydmljaW8gZGUgQWRtaW5pc3RyYWNpw7NuIFRyaWJ1dGFyaWExODA2BgNVBAsML0FkbWluaXN0cmFjacOzbiBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpw7NuMSkwJwYJKoZIhvcNAQkBFhphc2lzbmV0QHBydWViYXMuc2F0LmdvYi5teDEmMCQGA1UECQwdQXYuIEhpZGFsZ28gNzcsIENvbC4gR3VlcnJlcm8xDjAMBgNVBBEMBTA2MzAwMQswCQYDVQQGEwJNWDEZMBcGA1UECAwQRGlzdHJpdG8gRmVkZXJhbDESMBAGA1UEBwwJQ295b2Fjw6FuMTQwMgYJKoZIhvcNAQkCDCVSZXNwb25zYWJsZTogQXJhY2VsaSBHYW5kYXJhIEJhdXRpc3RhMB4XDTEzMDUwNzE2MDEyOVoXDTE3MDUwNzE2MDEyOVowgdsxKTAnBgNVBAMTIEFDQ0VNIFNFUlZJQ0lPUyBFTVBSRVNBUklBTEVTIFNDMSkwJwYDVQQpEyBBQ0NFTSBTRVJWSUNJT1MgRU1QUkVTQVJJQUxFUyBTQzEpMCcGA1UEChMgQUNDRU0gU0VSVklDSU9TIEVNUFJFU0FSSUFMRVMgU0MxJTAjBgNVBC0THEFBQTAxMDEwMUFBQSAvIEhFR1Q3NjEwMDM0UzIxHjAcBgNVBAUTFSAvIEhFR1Q3NjEwMDNNREZOU1IwODERMA8GA1UECxMIcHJvZHVjdG8wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAKS/beUVy6E3aODaNuLd2S3PXaQre0tGxmYTeUxa55x2t/7919ttgOpKF6hPF5KvlYh4ztqQqP4yEV+HjH7yy/2d/+e7t+J61jTrbdLqT3WD0+s5fCL6JOrF4hqy//EGdfvYftdGRNrZH+dAjWWml2S/hrN9aUxraS5qqO1b7btlAgMBAAGjHTAbMAwGA1UdEwEB/wQCMAAwCwYDVR0PBAQDAgbAMA0GCSqGSIb3DQEBBQUAA4IBAQACPXAWZX2DuKiZVv35RS1WFKgT2ubUO9C+byfZapV6ZzYNOiA4KmpkqHU/bkZHqKjR+R59hoYhVdn+ClUIliZf2ChHh8s0a0vBRNJ3IHfA1akWdzocYZLXjz3m0Er31BY+uS3qWUtPsONGVDyZL6IUBBUlFoecQhP9AO39er8zIbeU2b0MMBJxCt4vbDKFvT9i3V0Puoo+kmmkf15D2rBGR+drd8H8Yg8TDGFKf2zKmRsgT7nIeou6WpfYp570WIvLJQY+fsMp334D05Up5ykYSAxUGa30RdUzA4rxN5hT+W9whWVGD88TD33Nw55uNRUcRO3ZUVHmdWRG+GjhlfsD";
+        String certificate = "MIIFvjCCA6agAwIBAgIUMzAwMDEwMDAwMDA0MDAwMDI0MzkwDQYJKoZIhvcNAQELBQAwggErMQ8wDQYDVQQDDAZBQyBVQVQxLjAsBgNVBAoMJVNFUlZJQ0lPIERFIEFETUlOSVNUUkFDSU9OIFRSSUJVVEFSSUExGjAYBgNVBAsMEVNBVC1JRVMgQXV0aG9yaXR5MSgwJgYJKoZIhvcNAQkBFhlvc2Nhci5tYXJ0aW5lekBzYXQuZ29iLm14MR0wGwYDVQQJDBQzcmEgY2VycmFkYSBkZSBjYWRpejEOMAwGA1UEEQwFMDYzNzAxCzAJBgNVBAYTAk1YMRkwFwYDVQQIDBBDSVVEQUQgREUgTUVYSUNPMREwDwYDVQQHDAhDT1lPQUNBTjERMA8GA1UELRMIMi41LjQuNDUxJTAjBgkqhkiG9w0BCQITFnJlc3BvbnNhYmxlOiBBQ0RNQS1TQVQwHhcNMTkwNjE3MjAxMjQ0WhcNMjMwNjE3MjAxMjQ0WjCB5TEkMCIGA1UEAxQbSEVSTUFOT1MgQU5aVVJFUyDRQVJWQUVaIFNBMSQwIgYDVQQpFBtIRVJNQU5PUyBBTlpVUkVTINFBUlZBRVogU0ExJDAiBgNVBAoUG0hFUk1BTk9TIEFOWlVSRVMg0UFSVkFFWiBTQTElMCMGA1UELRQcSEHROTMwMjI4U005IC8gS0FITzY0MTEwMUIzOTEeMBwGA1UEBRMVIC8gS0FITzY0MTEwMUhOVExLUzA2MSowKAYDVQQLFCFIRVJNQU5PUyBBTlpVUkVTINFBUlZBRVogU0EgREUgQ1YwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCos7aY0klINvTOdSPhhOkh69dhlqFxEUuskiG6XxA18HSUY8tHVhb7iKakJP8YE8KZZEc/ya5WFvFRT5034n+kM0hgVrG/ycIWdo3FFLcz/NdrdK2DvSIP0zv2EFbFrbHwqogS6GWWU2wzRNDC3s4iGnD8tDYOva9jnoauvMf/9oybNgJkWygo7RfDeYpghxqPbeJqclSmr8b6UuTde7cLYitRFsolFDF2cywrUssBR8Gm/9giWgNeSBiOn5zM1LgG9SI/kFK3D+xNeIDD/yL1HEIL7N+na9l9s8iLSfJWlNA7gTh2mMWlVllbA4DxG3atOrnX7fe6PirQCxrIKciHAgMBAAGjHTAbMAwGA1UdEwEB/wQCMAAwCwYDVR0PBAQDAgbAMA0GCSqGSIb3DQEBCwUAA4ICAQC6+4O5SILoD7lGHZIvXAnls2T3Xb8T9Wt1Ozz46kk4r8czTECW3bOmPu92bQO8vkDO33yYy86eirLjO9ewM2tWwgMt66oBkYrFzJXTTKA3z+F3cjk06aALFPjHG3LZjbqvja6pfoDHkh5DbXNFNdvzqBa0J/egXUmam9m8p5Mh94f7Tb7aHoDTGaYRdJoFV/h5yhtdIeEkrCwCXy9a5rnDrZ6GEYRW4WkSvaN2H4pW5ua3fKgPPig2Xj5Edj9zZ3E61nH7PuA+M7XbOHeTt+Bsnl6FlRvBI0Zimj8o2K7RIPMvjrtKpD7L6WBpTmQoPoDdUlw3I7WtzvrcqLzRnYVnehxjnhGyYfCNMOWOrli9deLGXEVpN5RP+xmjo/ihuwWSoydTPBMpXFc2Bj+2ZsazH1x+Jdmgs38yd819PJ3KE3P0K9K++xUXy6MEWMZ+BAEd1UQSO38hSDn3/xguzihT4zjCDWIJ8jQe0Zm3l93ih+C6DcNLqQHnmegJrqOtzzKLWZ4rfs2mHE1v0aqElnY753E+cxyNctPbKcVJGp5VkF/g5ssmr/OAz8Ofa1cxQShIm27E+gnvxmSetFPu/g5CkGpYj00ZcKgicvNCRoaNYc5wBEFH21PeYiVjkdplqZlRrsDHipQ1gYcqz/Vw8c3ZKG8zlVVvhlBbUNByDh/9nw==";
         assertEquals(certificate, cfd.doGetComprobante().getCertificado());
         BigInteger bi = cert.getSerialNumber();
         String certificateNum = new String(bi.toByteArray());
@@ -98,20 +98,6 @@ public final class CFDv32Test {
         cfd2.verificar();
     }
 
-    //  @Test public void testValidateVerifyExternal() throws Exception {
-//    CFDv32 cfd = 
-//      new CFDv32(new FileInputStream("resources/xml/cfdv32.externo.xml"));
-//    cfd.validar();
-//    cfd.verificar();
-//  }
-//
-//  @Test public void testLoad() throws Exception {
-//    Comprobante c = CFDv32
-//      .newComprobante(new FileInputStream("resources/xml/cfdv32.externo.xml"));
-//    CFDv32 cfd = new CFDv32(c);
-//    cfd.validar();
-//    cfd.verificar();
-//  }
     @Test
     public void testSellarComprobante() throws Exception {
         Comprobante c = CFDv32
