@@ -104,11 +104,4 @@ public final class TFDv11c33Test {
         tfd.verificar();
     }
 
-    @Test
-    public void testValidateVerifyWithFile() throws Exception {
-        // CFDv32 cfd2 = new CFDv32(new FileInputStream("resources/xml/CFDI1.xml"));
-        // TFDv1c32 tfd2 = new TFDv1c32(cfd2, pacCert);
-        // tfd2.validar();
-        // tfd2.verificar();
-    }
 }
