@@ -97,7 +97,7 @@ public final class CFDv32 implements CFDI {
             "/xsd/common/AcreditamientoIEPS/AcreditamientoIEPS10.xsd",
             "/xsd/common/ecb/ecb.xsd",
             "/xsd/common/psgcfdsp/psgcfdsp.xsd",
-            "/xsd/common/psgecfd/psgecfd.xsd"
+            "/xsd/common/psgecfd/psgecfd.xsd"            
     };
 
     private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";

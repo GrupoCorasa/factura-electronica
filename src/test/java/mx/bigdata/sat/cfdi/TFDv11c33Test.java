@@ -49,13 +49,13 @@ public final class TFDv11c33Test {
     public static void loadKeys() throws Exception {
         key = KeyLoaderFactory.createInstance(
                 KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
-                new FileInputStream("resources/certs/CSD_HERMANOS_ANZURES_Ã‘ARVAEZ_SA_DE_CV_HAÃ‘930228SM9_20190617_132920.key"),
+                new FileInputStream("src/main/resources/certs/CSD_HERMANOS_ANZURES_ÑARVAEZ_SA_DE_CV_HAÑ930228SM9_20190617_132920.key"),
                 "12345678a"
         ).getKey();
 
         cert = KeyLoaderFactory.createInstance(
                 KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
-                new FileInputStream("resources/certs/CSD_HERMANOS_ANZURES_+Ã¦ARVAEZ_SA_DE_CV_HA+Ã¦930228SM9_20190617_132920s.cer")
+                new FileInputStream("src/main/resources/certs/CSD_HERMANOS_ANZURES_ÑARVAEZ_SA_DE_CV_HAÑ930228SM9_20190617_132920s.cer")
         ).getKey();
 
         pacKey = KeyLoaderFactory.createInstance(
@@ -83,14 +83,14 @@ public final class TFDv11c33Test {
 
     @Test
     public void testOriginalString() throws Exception {
-        String cadena = "||1.1|843a05d7-207d-4adc-91e8-bda7175bcda3|2017-06-07T08:51:00|FLI081010EK2|Leyenda opciones del Pac 01|O4Stv/YtkJqIiJ1HFm4ESgWFCRDOiSSI5GRyWK50JN3Alm5RjvgTqDvRkISWHnpOGXrodKsLJ01xtrZvywyeXj2JjMPGAuOABh4N7wtI428X2mAp9gnj3D//M+hD3aCObkSQHvodkc6o15yHKE4Pfd/E/mUxS/vo/WsuyCk3H04T4PNYb3lv1sa5Wu0C+by0cicqr+rLE+jgT+OJj136VX2Z02c20Y/zhCZ4+dwZ5Qc+8Q2njomf3/nqQj+44HOw4TH2U5Z0ZNl1wOoa5NCV4nFPF3KtfE5FYv5pkNc901TRLDZmJPR4sHBz6rq9U8kBitPq+wUhrqoPzQ7DUFS3/g==|30001000000400002450||";
+        String cadena = "||1.1|843a05d7-207d-4adc-91e8-bda7175bcda3|2017-06-07T08:51:00|FLI081010EK2|Leyenda opciones del Pac 01|O3OzI30eNbuEnaj5BBXzStIdmva0TrL5vGLeDs1uIADCyexMays7+imIShfwXMSlg2OgAgDZoVI1GgkIN90zHJBrwpq08XLLDKzxrBl7rpPnKnE93uVSG5Z3/UEJZpmwtytD+bQhu/C8N+jydU3NUYqDwANvlXDbrgjUGEoyq6YQNgl4lP1dvfxFyfbnxpD6XCaFU8U5a69kG0/ral9CTctVM1nFnRYeP8KqETMuzyZiSFt0fYr+/DqPyCzPT5SbR7Q43y+YPge85dUzU6OW/P5Z4VTWgnjIOapn7kDWmxwD4oFsqRaGoGLQB/HpGEIedYFxrsGhEga5N9dgS/DPIQ==|30001000000400002450||";
         assertEquals(cadena, tfd.getCadenaOriginal());
     }
 
     @Test
     public void testStamp() throws Exception {
         tfd.timbrar(pacKey);
-        String signature = "HbgqpQAK8L3QLx3ow1hELrvX3kF1SibcZcgAoJA11LNo/kzq8mqTGpuLXYsS1X9YDLHGazQWmcdTAwP01a3WqFTPOHX9G4OZObFtY8LCW71as3Zjv0g+1Z5TvTlB5pdcqAVuXfoeKQB+q2/3PfAb25joAImL/s+BTHrQwbJKlGfreq8CHUYlHUmV5PPQkMR8ps7CGw2CLSjkjXBbaz6D1riJMy5TSnwPdmBeBnwIz/Pd7NI+XvwUi+nS4OnrHzTbRghq6aBGhTpJXpLYVxrq0NxO4QVspazI135DwxMqI22LGiLpRU7jd2X/FbQ+uk+Q7+7YnT0G7YZ/lla1K+fddg==";
+        String signature = "AD/pjSHhJYRc0xLvIJqCP+k31PfHfIOkt6qVaossrm/rwI/lzd31G5tH9ud3waTkwS2BfucMKm/2fB0jKtEF4sddPq1bmVhy8Nmuz+bJq0i9arfvsByVGatMv8L1SUEU60M0F5KI2DW1aexLzPNlnWIoJAOVF93lumyjIg/VODjBZgmVEkPoUEaBWfeorGRZv1jAPku4vhSPbmSyfH28t4CWK2C21MJNijiyXO2cNfgOMlfscn6yf4ZI67FzoBx+Zbi8nMjDq0FqZNWdQGgnGUMZh73I5XkLYWhbTXgNmGo9fhr5xHC+zSvqqEbAXVINEcxlFYnDSNDvwsygxCKthQ==";
         assertEquals(signature, tfd.getTimbre().getSelloSAT());
         BigInteger bi = pacCert.getSerialNumber();
         String certificateNum = new String(bi.toByteArray());

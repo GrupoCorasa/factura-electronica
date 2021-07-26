@@ -768,6 +768,19 @@
                             <extension>true</extension>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>schema106-xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <packageName>mx.bigdata.sat.common.cartaporte.schema</packageName>
+                            <schemaDirectory>src/main/resources/xsd/common/CartaPorte</schemaDirectory>
+                            <outputDirectory>${project.build.directory}/generated-sources/xjc106</outputDirectory>
+                            <staleFile>${project.build.directory}/generated-sources/xjc106/.staleFlag</staleFile>
+                            <extension>true</extension>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
