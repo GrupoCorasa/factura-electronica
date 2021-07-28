@@ -1,0 +1,1871 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+    xmlns:cartaporte="http://www.sat.gob.mx/CartaPorte" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    xmlns:catCFDI="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" 
+    xmlns:tdCFDI="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" 
+    xmlns:catComExt="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/ComExt" 
+    xmlns:catCartaPorte="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/CartaPorte" 
+    targetNamespace="http://www.sat.gob.mx/CartaPorte" 
+    elementFormDefault="qualified" 
+    attributeFormDefault="unqualified">
+    <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" schemaLocation="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/catCFDI.xsd"/>
+    <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" schemaLocation="./../../common/tdCFDI.xsd"/>
+    <!--
+        <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/ComExt" schemaLocation="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/ComExt/catComExt.xsd"/>
+        <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/CartaPorte" schemaLocation="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/CartaPorte/catCartaPorte.xsd"/>
+    -->
+    <xs:element name="CartaPorte">
+        <xs:annotation>
+            <xs:documentation>Complemento para incorporar al Comprobante Fiscal Digital por Internet (CFDI), la información relacionada a los bienes o mercancías, ubicaciones de origen, puntos intermedios y destino, así como lo referente al medio por el que se transportan; ya sea por vía terrestre (carretera federal o líneas férreas), aérea, marítima o fluvial; además de incluir el traslado de Hidrocarburos y Petrolíferos.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Ubicaciones">
+                    <xs:annotation>
+                        <xs:documentation>Nodo requerido para registrar las distintas ubicaciones que sirven para reflejar el domicilio del origen y/o destino que tienen los bienes o mercancías que se trasladan por distintos medios de transporte.</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Ubicacion" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>Nodo requerido para registrar la ubicación que sirve para reflejar el domicilio del origen y/o destino parcial o final que tienen los bienes o mercancías que se trasladan por distintos medios de transporte.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Origen" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Nodo condicional para registrar la información detallada del Origen de los bienes o mercancías que se trasladan.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:attribute name="IDOrigen" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo condicional para registrar una clave que sirva para identificar el punto de salida de los bienes o mercancías que se trasladan por los distintos medios de transporte, mediante un folio, el cual estará compuesto de la siguiente forma: el acrónimo “OR” seguido de 6 dígitos numéricos asignados por el contribuyente que emite el comprobante para su identificación.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="OR[0-9]{6}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="RFCRemitente" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo condicional para registrar el RFC del remitente de los bienes o mercancías que se trasladan.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="NombreRemitente" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional para registrar el nombre del remitente de los bienes o mercancías que se trasladan.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="1"/>
+                                                            <xs:maxLength value="254"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="[^|]{1,254}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="NumRegIdTrib" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo condicional para incorporar el número de identificación o registro fiscal del país de residencia para los efectos fiscales del remitente de los bienes o mercancías que se trasladan, cuando sea residente en el extranjero.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="6"/>
+                                                            <xs:maxLength value="40"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="[^|]{6,40}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="ResidenciaFiscal" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo condicional para registrar la clave del país de residencia para efectos fiscales del remitente de los bienes o mercancías, conforme con el catálogo c_Pais publicado en el portal del SAT en Internet que está basado en la especificación ISO 3166-1.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="NumEstacion" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo condicional para registrar la clave del número de la estación de salida por la que se trasladan los bienes o mercancías en los distintos medios de transporte, esto de acuerdo al valor de la columna Clave identificación que permite asociarla al tipo de transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="NombreEstacion" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo condicional para registrar el nombre de la estación por la que se trasladan los bienes o mercancías en los distintos medios de transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="1"/>
+                                                            <xs:maxLength value="50"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="[^|]{1,50}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="NavegacionTrafico" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo condicional para registrar el tipo de puerto por el que se documentan los bienes o mercancías vía marítima.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:enumeration value="Altura"/>
+                                                            <xs:enumeration value="Cabotaje"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="FechaHoraSalida" type="xs:string" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para la expresión de la fecha y hora estimada en la que salen los bienes o mercancías del origen. Se expresa en la forma AAAA-MM-DDThh:mm:ss.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="Destino" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Nodo condicional para registrar la información detallada del Destino de los bienes o mercancías que se trasladan.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:attribute name="IDDestino" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo condicional para registrar una clave que sirva para identificar el punto de llegada de los bienes o mercancías que se trasladan por los distintos medios de transporte, mediante un folio, el cual estará compuesto de la siguiente forma: el acrónimo “DE” seguido de 6 dígitos numéricos asignados por el contribuyente que emite el comprobante para su identificación.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="DE[0-9]{6}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="RFCDestinatario" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo condicional para registrar el RFC del destinatario al que se le entregarán los bienes o mercancías que se trasladan.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="NombreDestinatario" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional para registrar el nombre del destinatario de los bienes o mercancías que se trasladan.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="1"/>
+                                                            <xs:maxLength value="254"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="[^|]{1,254}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="NumRegIdTrib" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo condicional para incorporar el número de identificación o registro fiscal del país de residencia para los efectos fiscales del destinatario de los bienes o mercancías que se trasladan, cuando sea residente en el extranjero.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="6"/>
+                                                            <xs:maxLength value="40"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="[^|]{6,40}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="ResidenciaFiscal" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo condicional para registrar la clave del país de residencia para efectos fiscales del destinatario de los bienes o mercancías, conforme con el catálogo c_Pais publicado en el portal del SAT en Internet que está basado en la especificación ISO 3166-1.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="NumEstacion" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo condicional para registrar la clave del número de la estación de llegada por la que se trasladan los bienes o mercancías en los distintos medios de transporte, esto de acuerdo al valor de la columna Clave identificación que permite asociarla al tipo de transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="NombreEstacion" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo condicional para registrar el nombre de la estación por la que se trasladan los bienes o mercancías en los distintos medios de transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="1"/>
+                                                            <xs:maxLength value="50"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="[^|]{1,50}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="NavegacionTrafico" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo condicional para registrar el tipo de puerto por el que se documentan los bienes o mercancías vía marítima.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:enumeration value="Altura"/>
+                                                            <xs:enumeration value="Cabotaje"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="FechaHoraProgLlegada" type="xs:string" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para la expresión de la fecha y hora en la que estima arriben a su destino los bienes o mercancías. Se expresa en la forma AAAA-MM-DDThh:mm:ss.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="Domicilio" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Nodo condicional para registrar información del domicilio de origen y/o destino de los bienes o mercancías que se trasladan en los distintos medios de transporte.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:attribute name="Calle" type="xs:string" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para precisar la calle en la que está ubicado el domicilio de origen y/o destino de los bienes o mercancías que se trasladan en los distintos medios de transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="NumeroExterior" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional que sirve para expresar el número exterior en donde se ubica el domicilio del origen y/o destino de los bienes o mercancías que se trasladan en los distintos medios de transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="NumeroInterior" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional que sirve para expresar el número interior, en caso de existir, en donde se ubica el domicilio del origen y/o destino de los bienes o mercancías que se trasladan en los distintos medios de transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="Colonia" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional que sirve para expresar la colonia o dato análogo en donde se ubica el domicilio del origen o destino de los bienes o mercancías que se trasladan en los distintos medios de transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="Localidad" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional que sirve para precisar la ciudad, población, distrito u otro análogo en donde se encuentra ubicado el domicilio del origen y/o destino de los bienes o mercancías que se trasladan en los distintos medios de transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="Referencia" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional para expresar una referencia geográfica adicional que permita una fácil o precisa ubicación del domicilio del origen y/o destino de las mercancías que se trasladan en los distintos medios de transporte; por ejemplo, las coordenadas GPS.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="Municipio" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional que sirve para precisar el municipio, delegación o alcaldía, condado u otro análogo en donde se encuentra ubicado el domicilio destino de los bienes o mercancías que se trasladan en los distintos medios de transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="Estado" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para precisar el estado, entidad, región, comunidad, u otra figura análoga en donde se encuentra ubicado el domicilio del origen y/o destino de los bienes o mercancías que se trasladan en los distintos medios de transporte. El catálogo se publica en el portal del SAT en Internet y es conforme con la especificación ISO 3166-2.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="1"/>
+                                                            <xs:maxLength value="30"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="[^|]{1,30}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="Pais" type="xs:string" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido que sirve para precisar la clave del país en donde se encuentra ubicado el domicilio del origen y/o destino de los bienes o mercancías que se trasladan en los distintos medios de transporte, conforme con el catálogo c_Pais publicado en el portal del SAT en Internet que está basado en la especificación ISO 3166-1.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="CodigoPostal" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para asentar el código postal (PO, BOX) en donde se encuentra el domicilio del origen y/o destino de los bienes o mercancías que se trasladan en los distintos medios de transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="1"/>
+                                                            <xs:maxLength value="12"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="TipoEstacion" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para precisar el tipo de estación por el que pasan los bienes o mercancías durante su traslado en los distintos medios de transporte.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="DistanciaRecorrida" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para registrar la distancia recorrida en kilómetros de la ubicación de Origen a la de Destino parcial o final, de los distintos medios de transporte que trasladan los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:decimal">
+                                                <xs:minInclusive value="0.01"/>
+                                                <xs:maxInclusive value="99999"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Mercancias">
+                    <xs:annotation>
+                        <xs:documentation>Nodo requerido para registrar la información de los bienes o mercancías que se trasladan en los distintos medios de transporte.</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Mercancia" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>Nodo requerido para registrar información de los bienes o mercancías que se trasladan en los distintos medios de transporte.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="CantidadTransporta" minOccurs="0" maxOccurs="unbounded">
+                                            <xs:annotation>
+                                                <xs:documentation>Nodo condicional para registrar la cantidad de los bienes o mercancías que se trasladan en los distintos medios de transporte, que será distribuida o captada en distintos puntos, a fin de identificar el punto de origen y destino de dichos bienes o mercancías, y se podrá registrar este nodo tantas veces sea necesario.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:attribute name="Cantidad" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para expresar el número de bienes o mercancías que se trasladan en los distintos medios de transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:decimal">
+                                                            <xs:fractionDigits value="6"/>
+                                                            <xs:minInclusive value="0.000001"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="IDOrigen" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para expresar la clave del identificador del origen de los bienes o mercancías que se trasladan por los distintos medios de transporte, de acuerdo al valor registrado en el nodo “Origen”, del elemento “Ubicacion”.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="OR[0-9]{6}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="IDDestino" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para expresar la clave del identificador del destino de los bienes o mercancías que se trasladan por los distintos medios de transporte, de acuerdo al valor registrado en el nodo “Origen”, del elemento “Ubicacion”.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="DE[0-9]{6}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="CvesTransporte" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo condicional para expresar la clave que identifica el medio por el cual se transportan los bienes o mercancías, dicha clave debe ser distinta a “05” que corresponde a “Ducto”.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="DetalleMercancia" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Nodo condicional para registrar mayor detalle de los bienes o mercancías que se transportan y será requerido cuando el traslado sea vía marítima.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:attribute name="UnidadPeso" type="xs:string" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para expresar la clave de unidad de medida estandarizada del peso de los bienes o mercancías que se trasladan.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="PesoBruto" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para expresar el peso total bruto de los bienes o mercancías que se trasladan.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:decimal">
+                                                            <xs:fractionDigits value="3"/>
+                                                            <xs:minInclusive value="0.001"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="PesoNeto" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para expresar el peso total neto de los bienes o mercancías que se trasladan.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:decimal">
+                                                            <xs:fractionDigits value="3"/>
+                                                            <xs:minInclusive value="0.001"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="PesoTara" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para expresar el peso bruto, menos el peso neto de las mercancías que se trasladan.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:decimal">
+                                                            <xs:fractionDigits value="3"/>
+                                                            <xs:minInclusive value="0.001"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="NumPiezas" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional para registrar el número de piezas de los bienes o mercancías que se trasladan.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:int">
+                                                            <xs:minInclusive value="1"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="BienesTransp" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para expresar la clave de producto de los bienes o mercancías que se trasladan en los distintos medios de transporte.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="ClaveSTCC" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para expresar la clave de producto conforme al catálogo de la STCC cuando el medio de transporte es ferroviario.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="Descripcion" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para describir los bienes o mercancías que se trasladan en los distintos medios de transporte.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="1"/>
+                                                <xs:maxLength value="1000"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{1,1000}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="Cantidad" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para expresar la cantidad de los bienes o mercancías que se trasladan en los distintos medios de transporte.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:decimal">
+                                                <xs:fractionDigits value="6"/>
+                                                <xs:minInclusive value="0.000001"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="ClaveUnidad" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para precisar la clave de unidad de medida estandarizada aplicable para la cantidad de los bienes o mercancías que se trasladan en los distintos medios de transporte. La unidad debe corresponder con la descripción de los bienes o mercancías registrados.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="Unidad" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para precisar la unidad de medida propia de los bienes o mercancías que se trasladan en los distintos medios de transporte, aplicable para la cantidad. La unidad debe corresponder con la descripción de los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="1"/>
+                                                <xs:maxLength value="20"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{1,20}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="Dimensiones" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para expresar las medidas del empaque de los bienes o mercancías que se trasladan vía aérea. Se debe registrar la longitud, la altura y la anchura en centímetros o en pulgadas separados dichos valores por una diagonal, i.e. 30/40/30cm</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:pattern value="[0-9]{2}[/]{1}[0-9]{2}[/]{1}[0-9]{2}cm|[0-9]{2}[/]{1}[0-9]{2}[/]{1}[0-9]{2}plg"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="MaterialPeligroso" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para precisar si los bienes o mercancías que se trasladan son considerados material peligroso.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:enumeration value="Sí"/>
+                                                <xs:enumeration value="No"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="CveMaterialPeligroso" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para precisar la clave del tipo de material peligroso que se transporta.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="Embalaje" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para precisar la clave del tipo de embalaje que se requiere para transportar el material o residuo peligroso.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="DescripEmbalaje" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para expresar la descripción del embalaje en el que se transporta los bienes o mercancías que se consideran material o residuo peligroso.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="1"/>
+                                                <xs:maxLength value="100"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{1,100}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="PesoEnKg" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para indicar el peso en kilogramos de los bienes o mercancías que se trasladan en los distintos medios de transporte.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:decimal">
+                                                <xs:fractionDigits value="3"/>
+                                                <xs:minInclusive value="0.001"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="ValorMercancia" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para expresar el monto del valor de los bienes o mercancías que se trasladan en los distintos medios de transporte, de acuerdo al valor mercado, el valor pactado en la contraprestación o al valor estimado que determine el contribuyente.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="Moneda" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para identificar la clave de la moneda utilizada para expresar el valor de los bienes o mercancías que se trasladan en los distintos medios de transporte, cuando se usa moneda nacional se registra MXN, conforme con la especificación ISO 4217.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="FraccionArancelaria" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional que sirve para expresar la clave de la fracción arancelaria correspondiente a la descripción de los bienes o mercancías que se trasladan en los distintos medios de transporte como importación o exportación, este dato se vuelve requerido cuando el atributo “EntradaSalidaMerc” contenga información. Debe ser conforme con el catálogo c_FraccionArancelaria publicado en el portal del SAT en Internet.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="UUIDComercioExt" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para expresar el folio fiscal o UUID del comprobante de comercio exterior que se relaciona, este dato se vuelve requerido cuando el atributo “EntradaSalidaMerc” contenga el valor “Salida”.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:pattern value="[a-f0-9A-F]{8}-[a-f0-9A-F]{4}-[a-f0-9A-F]{4}-[a-f0-9A-F]{4}-[a-f0-9A-F]{12}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="AutotransporteFederal" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>Nodo condicional para registrar la información que permita la identificación del autotransporte de carga federal, por medio del cual se transportan los bienes o mercancías, que transitan a través de las carreteras federales del territorio nacional.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="IdentificacionVehicular">
+                                            <xs:annotation>
+                                                <xs:documentation>Nodo requerido para registrar los datos de identificación del autotransporte en el que se trasladan los bienes o mercancías.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:attribute name="ConfigVehicular" type="xs:string" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para expresar la clave de nomenclatura del autotransporte que es utilizado para transportar los bienes o mercancías.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="PlacaVM" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para registrar el valor de la placa vehicular del autotransporte que es utilizado para transportar los bienes o mercancías, se deben registrar solo los caracteres alfanuméricos, sin guiones y espacios.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="[^(?!.*\s)-]{6,7}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="AnioModeloVM" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para registrar el año del autotransporte que es utilizado para transportar los bienes o mercancías.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:int">
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="(19[0-9]{2}|20[0-9]{2})"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="Remolques" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Nodo opcional para registrar los datos del (los) remolque(s) o semirremolque(s) que se emplean con el autotransporte para el traslado de los bienes o mercancías.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="Remolque" minOccurs="0" maxOccurs="2">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Nodo requerido para expresar la información del remolque o semirremolques que se emplean con el autotransporte para el traslado de los bienes o mercancías.</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:attribute name="SubTipoRem" type="xs:string" use="required">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo requerido para expresar la clave del subtipo de remolque o semirremolques que se emplean con el autotransporte para el traslado de los bienes o mercancías.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="Placa" use="required">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo requerido para registrar el valor de la placa vehicular del remolque o semirremolque que es utilizado para transportar los bienes o mercancías, se deben registrar solo los caracteres alfanuméricos, sin guiones y espacios.</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="xs:string">
+                                                                        <xs:whiteSpace value="collapse"/>
+                                                                        <xs:pattern value="[^(?!.*\s)-]{6,7}"/>
+                                                                    </xs:restriction>
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="PermSCT" type="xs:string" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para precisar la clave del tipo de permiso proporcionado por la SCT, el cual debe corresponder de acuerdo al tipo de autotransporte utilizado para el traslado de los bienes o mercancías registrado en el catálogo catCartaPorte:c_TipoPermiso.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="NumPermisoSCT" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para precisar el número del permiso otorgado por la SCT, el cual se debe capturar de acuerdo al tipo de autotransporte utilizado para el traslado de los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="1"/>
+                                                <xs:maxLength value="50"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{1,50}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="NombreAseg" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para expresar el nombre de la aseguradora que cubre los riesgos del autotransporte utilizado para el traslado de los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="3"/>
+                                                <xs:maxLength value="50"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{3,50}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="NumPolizaSeguro" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para registrar el número de póliza asignado por la aseguradora, que cubre los riesgos del autotransporte utilizado para el traslado de los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="3"/>
+                                                <xs:maxLength value="30"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{3,30}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="TransporteMaritimo" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>Nodo condicional para registrar la información que permita la identificación de la embarcación por medio del cual se transportan los bienes o mercancías, vía marítima.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Contenedor" maxOccurs="unbounded">
+                                            <xs:annotation>
+                                                <xs:documentation>Nodo requerido para registrar los datos del contenedor en el que transportan los bienes o mercancías.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:attribute name="MatriculaContenedor" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para expresar la matrícula o número de identificación del contenedor marítimo donde se transportan los bienes o mercancías, el cual está integrado por el código del propietario, el número de serie y el dígito de control.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="11"/>
+                                                            <xs:maxLength value="15"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="[^|]{11,15}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="TipoContenedor" type="xs:string" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para registrar la clave de identificación para el tipo de contenedor marítimo donde se transportan los bienes o mercancías.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="NumPrecinto" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional para registrar el número de sello o precinto de los contenedores marítimos que son utilizados para transportar los bienes o mercancías.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="5"/>
+                                                            <xs:maxLength value="20"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="[^|]{5,20}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="PermSCT" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para precisar la clave del tipo de permiso proporcionado por la SCT, el cual debe corresponder a  la navegación que se está utilizando para el traslado de los bienes o mercancías registrado en el catálogo catCartaPorte:c_TipoPermiso.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="NumPermisoSCT" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para precisar el número de permiso proporcionado por la SCT para la navegación.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="1"/>
+                                                <xs:maxLength value="30"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{1,30}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="NombreAseg" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para expresar el nombre de la aseguradora que cubre el seguro de protección e indemnización por responsabilidad civil de la embarcación.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="3"/>
+                                                <xs:maxLength value="50"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{3,50}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="NumPolizaSeguro" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para registrar el número de póliza asignado por la aseguradora para la protección e indemnización por responsabilidad civil de la embarcación.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="3"/>
+                                                <xs:maxLength value="30"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{3,30}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="TipoEmbarcacion" type="xs:string" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para registrar la clave de identificación del transporte del tipo de embarcación que es utilizado para trasladar los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="Matricula" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para registrar el número de la matrícula o registro de la embarcación que es utilizada para transportar los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="7"/>
+                                                <xs:maxLength value="30"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{7,30}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="NumeroOMI" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para registrar el número de identificación asignado por la Organización Marítima Internacional a la embarcación encargada de transportar los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="IMO[0-9]{7}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="AnioEmbarcacion" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para expresar el año de la embarcación en la que se transportan los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:int">
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="(19[0-9]{2}|20[0-9]{2})"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="NombreEmbarc" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para expresar el nombre de la embarcación en la que se transportan los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="1"/>
+                                                <xs:maxLength value="50"/>
+                                                <xs:pattern value="[^|]{1,50}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="NacionalidadEmbarc" type="xs:string" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para expresar el país correspondiente a la nacionalidad de la embarcación que transporta los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="UnidadesDeArqBruto" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para registrar el valor de las unidades de arqueo bruto conforme a las medidas internacionales definidas por el ITC para cada tipo de buque o embarcación en la que se transportan los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:decimal">
+                                                <xs:fractionDigits value="3"/>
+                                                <xs:minInclusive value="0.001"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="TipoCarga" type="xs:string" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para especificar el tipo de carga bajo el cual se tipifican los bienes o mercancías que se transportan en la embarcación.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="NumCertITC" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para registrar el número del certificado emitido por la ITC para la embarcación o buque que transporta los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="3"/>
+                                                <xs:maxLength value="20"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{3,20}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="Eslora" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para registrar la longitud de eslora, definida en pies, con la que cuenta la embarcación o buque en el que se transportan los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:decimal">
+                                                <xs:fractionDigits value="2"/>
+                                                <xs:minInclusive value="0.01"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="Manga" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para registrar la longitud de manga, definida en pies, con la que cuenta la embarcación o buque en el que se transportan los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:decimal">
+                                                <xs:fractionDigits value="2"/>
+                                                <xs:minInclusive value="0.01"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="Calado" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para registrar la longitud del calado, definida en pies, con la que cuenta la embarcación o buque en el que se transportan los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:decimal">
+                                                <xs:fractionDigits value="2"/>
+                                                <xs:minInclusive value="0.01"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="LineaNaviera" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para expresar el nombre de la línea naviera autorizada de gestionar el traslado de los bienes o mercancías vía marítima.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="3"/>
+                                                <xs:maxLength value="50"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{3,50}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="NombreAgenteNaviero" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para registrar el nombre del agente naviero autorizado para gestionar el traslado de los bienes o mercancías vía marítima.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="1"/>
+                                                <xs:maxLength value="100"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{1,100}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="NumAutorizacionNaviero" type="xs:string" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para expresar el número de registro de autorización como agente naviero consignatario emitido por la SCT.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="NumViaje" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para expresar el número del viaje con el que se identifica el traslado de los bienes o mercancías en el buque o embarcación.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="1"/>
+                                                <xs:maxLength value="30"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{1,30}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="NumConocEmbarc" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para expresar el número de conocimiento de embarque que identifica el traslado de los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="1"/>
+                                                <xs:maxLength value="30"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{1,30}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="TransporteAereo" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>Nodo condicional para registrar la información que permita la identificación del transporte aéreo por medio del cual se trasladan los bienes o mercancías.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:attribute name="PermSCT" type="xs:string" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para precisar la clave del tipo de permiso proporcionado por la SCT o la autoridad análoga, para el transporte de bienes o mercancías vía aérea.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="NumPermisoSCT" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para precisar el número de permiso o algún valor análogo proporcionado por la SCT o la autoridad análoga, para el transporte de bienes o mercancías vía aérea. </xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="1"/>
+                                                <xs:maxLength value="50"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{1,50}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="MatriculaAeronave" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para registrar el número de matrícula de la aeronave que opera en territorio nacional y que se compone de valores alfanuméricos más el carácter especial de guion medio “-“, con una longitud de 10 posiciones.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="5"/>
+                                                <xs:maxLength value="10"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="([A-Z]|[0-9]|-|){5,10}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="NombreAseg" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para expresar el nombre de la aseguradora que cubre los riesgos del medio que transporta los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="3"/>
+                                                <xs:maxLength value="50"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{3,50}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="NumPolizaSeguro" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para registrar el número de póliza asignado por la aseguradora para la protección e indemnización por responsabilidad civil de la aeronave que transporta los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="3"/>
+                                                <xs:maxLength value="30"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{3,30}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="NumeroGuia" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para registrar el número de guía aérea con el que se trasladan los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="12"/>
+                                                <xs:maxLength value="15"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{12,15}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="LugarContrato" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para registrar el lugar, entidad, región, localidad o análoga, donde se celebró el contrato para el traslado de los bienes o mercancías.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="RFCTransportista" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para registrar el RFC del transportista de los bienes o mercancías, en caso de que sea diferente del emisor del CFDI.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="CodigoTransportista" type="xs:string" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para precisar el valor del código que tiene asignado el transportista y debe contener una clave válida del catálogo “catCartaPorte:c_CodigoTransporteAereo”.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="NumRegIdTribTranspor" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para incorporar el número de identificación o registro fiscal del país de residencia para los efectos fiscales del transportista, cuando sea residente en el extranjero.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="6"/>
+                                                <xs:maxLength value="40"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{6,40}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="ResidenciaFiscalTranspor" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para registrar la clave del país de residencia para efectos fiscales del transportista, conforme con el catálogo c_Pais publicado en el portal del SAT en Internet que está basado en la especificación ISO 3166-1.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="NombreTransportista" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para registrar el nombre del transportista ya sea nacional o extranjero.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="1"/>
+                                                <xs:maxLength value="254"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{1,254}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="RFCEmbarcador" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para registrar el RFC del embarcador de los bienes o mercancías que se trasladan y debe estar en la lista de contribuyentes inscritos no cancelados del SAT (l_RFC).</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="NumRegIdTribEmbarc" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para incorporar el número de identificación o registro fiscal del país de residencia para los efectos fiscales del embarcador de los bienes o mercancías que se trasladan, cuando sea residente en el extranjero.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="6"/>
+                                                <xs:maxLength value="40"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{6,40}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="ResidenciaFiscalEmbarc" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para registrar la clave del país de residencia para efectos fiscales del embarcador de los bienes o mercancías, conforme con el catálogo c_Pais publicado en el portal del SAT en Internet que está basado en la especificación ISO 3166-1.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="NombreEmbarcador" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para registrar el nombre del embarcador de los bienes o mercancías que se trasladan, ya sea nacional o extranjero.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="1"/>
+                                                <xs:maxLength value="254"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{1,254}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="TransporteFerroviario" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>Nodo condicional para registrar la información que permita la identificación del carro o contenedor en el que se transportan los bienes o mercancías vía férrea.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="DerechosDePaso" minOccurs="0" maxOccurs="unbounded">
+                                            <xs:annotation>
+                                                <xs:documentation>Nodo opcional para registrar los tipos de derechos de paso cubiertos por el transportista en las vías férreas de las cuales no es concesionario o asignatario, así como la distancia establecida en kilómetros.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:attribute name="TipoDerechoDePaso" type="xs:string" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para registrar el valor de la clave del derecho de paso pagado por el transportista en las vías férreas de las cuales no es concesionario o asignatario.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="KilometrajePagado" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para registrar el total de kilómetros pagados por el transportista en las vías férreas de las cuales no es concesionario o asignatario con el derecho de paso.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:decimal">
+                                                            <xs:fractionDigits value="2"/>
+                                                            <xs:minInclusive value="0.01"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="Carro" maxOccurs="unbounded">
+                                            <xs:annotation>
+                                                <xs:documentation>Nodo requerido para registrar la información que permite identificar los carros en los que se trasladan los bienes o mercancías vía férrea.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="Contenedor" minOccurs="0" maxOccurs="unbounded">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Nodo opcional para especificar el tipo de contenedor o vagón en el que se trasladan los bienes o mercancías vía férrea.</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:attribute name="TipoContenedor" type="xs:string" use="required">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo requerido para registrar la clave con las que se identifica el tipo de contenedor o vagón en el que se traslada los bienes o mercancías.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="PesoContenedorVacio" use="required">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo requerido para registrar el peso en kilogramos del contenedor vacío en el que se trasladan los bienes o mercancías.</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="xs:decimal">
+                                                                        <xs:fractionDigits value="3"/>
+                                                                        <xs:minInclusive value="0.001"/>
+                                                                        <xs:whiteSpace value="collapse"/>
+                                                                    </xs:restriction>
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="PesoNetoMercancia" use="required">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo requerido para registrar el peso neto en kilogramos de los bienes o mercancías que trasladan en el contenedor.</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="xs:decimal">
+                                                                        <xs:fractionDigits value="3"/>
+                                                                        <xs:minInclusive value="0.001"/>
+                                                                        <xs:whiteSpace value="collapse"/>
+                                                                    </xs:restriction>
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                                <xs:attribute name="TipoCarro" type="xs:string" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para registrar la clave del tipo de carro utilizado para el traslado de los bienes o mercancías vía férrea.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="MatriculaCarro" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para expresar el número de contenedor, carro de ferrocarril o número económico del vehículo en el que se trasladan los bienes o mercancías vía férrea.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="6"/>
+                                                            <xs:maxLength value="15"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="[^|]{6,15}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="GuiaCarro" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para expresar el número de guía asignado al contenedor, carro de ferrocarril o vehículo en el que se trasladan los bienes o mercancías vía férrea.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="1"/>
+                                                            <xs:maxLength value="15"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="[^|]{1,15}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="ToneladasNetasCarro" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para registrar la cantidad de las toneladas netas contenidas en el contenedor, carro de ferrocarril o vehículo en el que se trasladan los bienes o mercancías vía férrea.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:decimal">
+                                                            <xs:fractionDigits value="3"/>
+                                                            <xs:minInclusive value="0.001"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="TipoDeServicio" type="xs:string" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para registrar la clave del tipo de servicio proporcionado para el traslado de los bienes o mercancías vía férrea.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="NombreAseg" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para expresar el nombre de la aseguradora que cubre los riesgos para el traslado de los bienes o mercancías vía férrea.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="3"/>
+                                                <xs:maxLength value="50"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{3,50}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="NumPolizaSeguro" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para registrar el número de póliza asignado por la aseguradora para la protección e indemnización por responsabilidad civil para el traslado de los bienes o mercancías vía férrea.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="3"/>
+                                                <xs:maxLength value="30"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{3,30}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="Concesionario" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para registrar la clave del RFC del concesionario o asignatario del transporte, siempre que el traslado de la mercancía se efectúe por un concesionario diferente al emisor del comprobante.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="PesoBrutoTotal" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Atributo condicional para expresar la suma del peso bruto total de los bienes o mercancías que se trasladan por transporte ferroviario y aéreo.</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                                <xs:restriction base="xs:decimal">
+                                    <xs:fractionDigits value="3"/>
+                                    <xs:minInclusive value="0.001"/>
+                                    <xs:whiteSpace value="collapse"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="UnidadPeso" type="xs:string" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Atributo condicional para expresar la clave de unidad de medida estandarizada del peso de los bienes o mercancías que se trasladan vía férrea y aérea.</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="PesoNetoTotal" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Atributo condicional para registrar la suma de los valores registrados en el atributo “PesoNeto” del nodo “DetalleMercancia” del elemento “Mercancia”.</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                                <xs:restriction base="xs:decimal">
+                                    <xs:fractionDigits value="3"/>
+                                    <xs:minInclusive value="0.001"/>
+                                    <xs:whiteSpace value="collapse"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="NumTotalMercancias" use="required">
+                            <xs:annotation>
+                                <xs:documentation>Atributo requerido para expresar el número total de los bienes o mercancías que se trasladan en los distintos medios de transporte, identificándose por cada nodo "Mercancia" registrado en el complemento.</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                                <xs:restriction base="xs:int">
+                                    <xs:minInclusive value="1"/>
+                                    <xs:whiteSpace value="collapse"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="CargoPorTasacion" type="xs:string" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Atributo opcional para expresar el importe pagado por la tasación de los bienes o mercancías que se trasladan vía aérea.</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="FiguraTransporte" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Nodo opcional para indicar los datos de la figura del transporte que interviene en el traslado de los bienes o mercancías, cuando el dueño del medio de transporte es diferente del emisor del comprobante con el complemento carta porte.</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Operadores" minOccurs="0" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>Nodo condicional para indicar los datos del(los) operador(es) del autotransporte de carga federal en el que se trasladan los bienes o mercancías.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Operador" maxOccurs="unbounded">
+                                            <xs:annotation>
+                                                <xs:documentation>Nodo requerido para indicar los datos del operador del autotransporte de carga federal en el que se trasladan los bienes o mercancías.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="Domicilio" minOccurs="0">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Nodo opcional para registrar la información del domicilio del operador del autotransporte de carga federal en el que se trasladan los bienes o mercancías.</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:attribute name="Calle" type="xs:string" use="required">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo requerido que sirve para precisar la calle en que está ubicado el domicilio del operador del autotransporte de carga federal en el que se trasladan los bienes o mercancías.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="NumeroExterior" type="xs:string" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo opcional que sirve para expresar el número exterior en donde se ubica el domicilio del operador del autotransporte de carga federal en el que se trasladan los bienes o mercancías.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="NumeroInterior" type="xs:string" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo opcional que sirve para expresar el número interior, en caso de existir, en donde se ubica el domicilio del operador del autotransporte de carga federal en el que se trasladan los bienes o mercancías.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="Colonia" type="xs:string" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo opcional que sirve para expresar la clave de la colonia o dato análogo en donde se ubica el domicilio del operador del autotransporte de carga federal en el que se trasladan los bienes o mercancías.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="Localidad" type="xs:string" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo opcional para precisar la clave de la ciudad, población, distrito u análogo en donde se encuentra ubicado el domicilio del operador del autotransporte de carga federal en el que se trasladan los bienes o mercancías.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="Referencia" type="xs:string" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo opcional para expresar una referencia geográfica adicional que permita una más fácil o precisa ubicación del operador del autotransporte de carga federal en el que se trasladan los bienes o mercancías; por ejemplo, las coordenadas GPS.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="Municipio" type="xs:string" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo opcional que sirve para precisar el municipio, delegación o alcaldía, condado u otro análogo en donde se encuentra ubicado el domicilio del operador del autotransporte de carga federal en el que se trasladan los bienes o mercancías.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="Estado" use="required">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo requerido para precisar el estado, entidad, región, comunidad, u otra figura análoga en donde se encuentra ubicado el domicilio del operador del autotransporte de carga federal en el que se trasladan los bienes o mercancías.</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="xs:string">
+                                                                        <xs:minLength value="1"/>
+                                                                        <xs:maxLength value="30"/>
+                                                                        <xs:whiteSpace value="collapse"/>
+                                                                        <xs:pattern value="[^|]{1,30}"/>
+                                                                    </xs:restriction>
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="Pais" type="xs:string" use="required">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo requerido que sirve para precisar la clave del país en donde se encuentra ubicado el domicilio del operador del autotransporte de carga federal en el que se trasladan los bienes o mercancías, conforme al catálogo c_Pais publicado en el portal del SAT en Internet que está basado en la especificación ISO 3166-1.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="CodigoPostal" use="required">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo requerido para asentar el código postal (PO, BOX) en donde se encuentra ubicado el domicilio del operador del autotransporte de carga federal en el que se trasladan los bienes o mercancías.</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="xs:string">
+                                                                        <xs:minLength value="1"/>
+                                                                        <xs:maxLength value="12"/>
+                                                                        <xs:whiteSpace value="collapse"/>
+                                                                    </xs:restriction>
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                                <xs:attribute name="RFCOperador" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo condicional para registrar el RFC del operador del autotransporte de carga federal en el que se trasladan los bienes o mercancías.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="NumLicencia" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo condicional para expresar el número de folio de la licencia o el permiso otorgado al operador del autotransporte de carga federal en el que se trasladan los bienes o mercancías.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="6"/>
+                                                            <xs:maxLength value="16"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="[^|]{6,16}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="NombreOperador" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional para registrar el nombre del operador del autotransporte de carga federal en el que se trasladan los bienes o mercancías.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="1"/>
+                                                            <xs:maxLength value="254"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="[^|]{1,254}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="NumRegIdTribOperador" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo condicional para incorporar el número de identificación o registro fiscal del país de residencia para los efectos fiscales del operador del autotransporte de carga federal en el que se trasladan los bienes o mercancías, cuando sea residente en el extranjero.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="6"/>
+                                                            <xs:maxLength value="40"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="[^|]{6,40}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="ResidenciaFiscalOperador" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo condicional para registrar la clave del país de residencia para efectos fiscales del operador del autotransporte de carga federal en el que se trasladan los bienes o mercancías, conforme con el catálogo c_Pais publicado en el portal del SAT en Internet que está basado en la especificación ISO 3166-1.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Propietario" minOccurs="0" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>Nodo condicional para indicar los datos del (los) propietario(s) del medio de transporte, siempre que el emisor del comprobante sea distinto al dueño del transporte.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Domicilio" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Nodo opcional para registrar el domicilio del propietario para el traslado de la mercancía.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:attribute name="Calle" type="xs:string" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido que sirve para precisar la calle en que está ubicado el domicilio del propietario del medio de transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="NumeroExterior" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional que sirve para expresar el número exterior en donde se ubica el domicilio del propietario del transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="NumeroInterior" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional que sirve para expresar el número interior, en caso de existir, en donde se ubica el domicilio del propietario del transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="Colonia" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional que sirve para expresar la clave de la colonia o dato análogo en donde se ubica el domicilio del propietario del transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="Localidad" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional para precisar la clave de la ciudad, población, distrito u análogo en donde se encuentra ubicado el domicilio del propietario del transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="Referencia" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional para expresar una referencia geográfica adicional que permita una más fácil o precisa ubicación del propietario del transporte; por ejemplo, las coordenadas GPS.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="Municipio" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional para precisar la clave del municipio, delegación o alcaldía, condado u otro análogo en donde se encuentra ubicado el domicilio del propietario del transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="Estado" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para precisar el estado, entidad, región, comunidad, u otra figura análoga en donde se encuentra ubicado el domicilio del propietario del transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="1"/>
+                                                            <xs:maxLength value="30"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="[^|]{1,30}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="Pais" type="xs:string" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido que sirve para precisar la clave del país en donde se encuentra ubicado el domicilio del propietario del transporte, conforme al catálogo c_Pais publicado en el portal del SAT en Internet que está basado en la especificación ISO 3166-1.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="CodigoPostal" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para asentar el código postal (PO, BOX) en donde se encuentra ubicado el domicilio del propietario del transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="1"/>
+                                                            <xs:maxLength value="12"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="RFCPropietario" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para registrar el RFC del propietario del medio de transporte.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="NombrePropietario" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para registrar el nombre del propietario del medio de transporte. </xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="1"/>
+                                                <xs:maxLength value="254"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{1,254}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="NumRegIdTribPropietario" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para incorporar el número de identificación o registro fiscal del país de residencia para los efectos fiscales del propietario del transporte, cuando sea residente en el extranjero.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="6"/>
+                                                <xs:maxLength value="40"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{6,40}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="ResidenciaFiscalPropietario" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para registrar la clave del país de residencia para efectos fiscales del propietario del transporte, conforme con el catálogo c_Pais publicado en el portal del SAT en Internet que está basado en la especificación ISO 3166-1.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Arrendatario" minOccurs="0" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>Nodo condicional para indicar los datos del (los) arrendatario(s) del medio de transporte, siempre que el emisor del comprobante sea distinto al dueño del transporte.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Domicilio" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Nodo opcional para registrar el domicilio del arrendatario del transporte.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:attribute name="Calle" type="xs:string" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido que sirve para precisar la calle en que está ubicado el domicilio del arrendatario del medio de transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="NumeroExterior" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional que sirve para expresar el número exterior en donde se ubica el domicilio del arrendatario del transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="NumeroInterior" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional que sirve para expresar el número interior, en caso de existir, en donde se ubica el domicilio del arrendatario del transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="Colonia" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional que sirve para expresar la clave de la colonia o dato análogo en donde se ubica el domicilio del arrendatario del transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="Localidad" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional para precisar la clave de la ciudad, población, distrito u análogo en donde se encuentra ubicado el domicilio del arrendatario del transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="Referencia" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional para expresar una referencia geográfica adicional que permita una más fácil o precisa ubicación del arrendatario del transporte; por ejemplo, las coordenadas GPS.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="Municipio" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional para precisar la clave del municipio, delegación o alcaldía, condado u otro análogo en donde se encuentra ubicado el domicilio del arrendatario del transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="Estado" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para precisar el estado, entidad, región, comunidad, u otra figura análoga en donde se encuentra ubicado el domicilio del arrendatario del transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="1"/>
+                                                            <xs:maxLength value="30"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="[^|]{1,30}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="Pais" type="xs:string" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido que sirve para precisar la clave del país en donde se encuentra ubicado el domicilio del arrendatario del transporte, conforme al catálogo c_Pais publicado en el portal del SAT en Internet que está basado en la especificación ISO 3166-1.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="CodigoPostal" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para asentar el código postal (PO, BOX) en donde se encuentra ubicado el domicilio del arrendatario del transporte.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="1"/>
+                                                            <xs:maxLength value="12"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="RFCArrendatario" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para registrar el RFC del arrendatario del medio de transporte.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="NombreArrendatario" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para registrar el nombre del arrendatario del medio de transporte.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="1"/>
+                                                <xs:maxLength value="254"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{1,254}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="NumRegIdTribArrendatario" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para incorporar el número de identificación o registro fiscal del país de residencia para los efectos fiscales del arrendatario del medio de transporte, cuando sea residente en el extranjero.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="6"/>
+                                                <xs:maxLength value="40"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{6,40}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="ResidenciaFiscalArrendatario" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para registrar la clave del país de residencia para efectos fiscales del arrendatario del transporte, conforme con el catálogo c_Pais publicado en el portal del SAT en Internet que está basado en la especificación ISO 3166-1.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Notificado" minOccurs="0" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>Nodo opcional para indicar los datos de identificación de la(s) persona(s) a quién(es) se debe notificar de la llegada del medio de transporte con los bienes o mercancías que se trasladan.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Domicilio" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Nodo opcional para registrar el domicilio de la(s) persona(s) a quién(es) se debe notificar de la llegada del medio de transporte con los bienes o mercancías que se trasladan.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:attribute name="Calle" type="xs:string" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido que sirve para precisar la calle en que está ubicado el domicilio de la persona notificada del arribo del medio de transporte con los bienes o mercancías que se trasladan.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="NumeroExterior" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional que sirve para expresar el número exterior en donde se ubica el domicilio de la persona notificada del arribo del medio de transporte con los bienes o mercancías que se trasladan.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="NumeroInterior" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional que sirve para expresar el número interior, en caso de existir, en donde se ubica el domicilio de la persona notificada del arribo del medio de transporte con los bienes o mercancías que se trasladan.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="Colonia" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional que sirve para expresar la clave de la colonia o dato análogo en donde se ubica el domicilio de la persona notificada del arribo del medio de transporte con los bienes o mercancías que se trasladan.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="Localidad" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional para precisar la clave de la ciudad, población, distrito u análogo en donde se encuentra ubicado el domicilio de la persona notificada del arribo del medio de transporte con los bienes o mercancías que se trasladan.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="Referencia" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional para expresar una referencia geográfica adicional que permita una más fácil o precisa ubicación de la persona notificada del arribo del medio de transporte con los bienes o mercancías que se trasladan; por ejemplo, las coordenadas GPS.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="Municipio" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo opcional para precisar la clave del municipio, delegación o alcaldía, condado u otro análogo en donde se encuentra ubicado el domicilio de la persona notificada del arribo del medio de transporte con los bienes o mercancías que se trasladan.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="Estado" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para precisar el estado, entidad, región, comunidad, u otra figura análoga en donde se encuentra ubicado el domicilio de la persona notificada del arribo del medio de transporte con los bienes o mercancías que se trasladan.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="1"/>
+                                                            <xs:maxLength value="30"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                            <xs:pattern value="[^|]{1,30}"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="Pais" type="xs:string" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido que sirve para precisar la clave del país en donde se encuentra ubicado el domicilio de la persona notificada del arribo del medio de transporte con los bienes o mercancías que se trasladan, conforme al catálogo c_Pais publicado en el portal del SAT en Internet que está basado en la especificación ISO 3166-1.</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="CodigoPostal" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Atributo requerido para asentar el código postal (PO, BOX) en donde se encuentra ubicado el domicilio de la persona notificada del arribo del medio de transporte con los bienes o mercancías que se trasladan.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:string">
+                                                            <xs:minLength value="1"/>
+                                                            <xs:maxLength value="12"/>
+                                                            <xs:whiteSpace value="collapse"/>
+                                                        </xs:restriction>
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="RFCNotificado" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para registrar el RFC de la persona a la que se debe notificar del arribo del medio de transporte con los bienes o mercancías que se trasladan.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="NombreNotificado" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para registrar el nombre de la persona a la que se debe notificar del arribo del medio de transporte con los bienes o mercancías que se trasladan.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="1"/>
+                                                <xs:maxLength value="254"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{1,254}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="NumRegIdTribNotificado" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para incorporar el número de identificación o registro fiscal del país de residencia para los efectos fiscales de la persona notificada del arribo del medio de transporte con los bienes o mercancías que se trasladan, cuando sea residente en el extranjero.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="6"/>
+                                                <xs:maxLength value="40"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[^|]{6,40}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="ResidenciaFiscalNotificado" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para registrar la clave del país de residencia para efectos fiscales de la persona notificada del arribo del transporte, conforme con el catálogo c_Pais publicado en el portal del SAT en Internet que está basado en la especificación ISO 3166-1.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="CveTransporte" type="xs:string" use="required">
+                            <xs:annotation>
+                                <xs:documentation>Atributo requerido para expresar la clave que identifica el medio por el cual se transportan los bienes o mercancías.</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="Version" use="required" fixed="1.0">
+                <xs:annotation>
+                    <xs:documentation>Atributo requerido con valor prefijado que indica la versión del complemento Carta Porte.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="TranspInternac" use="required">
+                <xs:annotation>
+                    <xs:documentation>Atributo requerido para expresar si los bienes o mercancías que son transportadas ingresan o salen del territorio nacional.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:whiteSpace value="collapse"/>
+                        <xs:enumeration value="Sí"/>
+                        <xs:enumeration value="No"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="EntradaSalidaMerc" use="optional">
+                <xs:annotation>
+                    <xs:documentation>Atributo condicional para precisar si los bienes o mercancías ingresan o salen del territorio nacional.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:whiteSpace value="collapse"/>
+                        <xs:enumeration value="Entrada"/>
+                        <xs:enumeration value="Salida"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="ViaEntradaSalida" type="xs:string" use="optional">
+                <xs:annotation>
+                    <xs:documentation>Atributo condicional para precisar la vía de ingreso o salida de los bienes o mercancías en territorio nacional.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="TotalDistRec" use="optional">
+                <xs:annotation>
+                    <xs:documentation>Atributo condicional para registrar la suma de las distancias recorridas en kilómetros, registradas en el atributo “Ubicaciones:Ubicacion:DistanciaRecorrida” para el traslado de los bienes o mercancías.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:minInclusive value="0.01"/>
+                        <xs:maxInclusive value="99999"/>
+                        <xs:whiteSpace value="collapse"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

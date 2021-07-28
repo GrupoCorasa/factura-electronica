@@ -62,40 +62,41 @@ public final class CFDv33 implements CFDI {
     private static final String XSLT = "/xslt/cadenaoriginal_3_3.xslt";
 
     private static final String[] XSD = new String[]{
-            "/xsd/common/tdCFDI.xsd",
-            "/xsd/v33/cfdv33.xsd",
-            "/xsd/v33/TimbreFiscalDigitalv11.xsd",
-            "/xsd/common/ecc/v11/ecc11.xsd",
-            "/xsd/common/donat/v11/donat11.xsd",
-            "/xsd/common/divisas/divisas.xsd",
-            "/xsd/common/implocal/implocal.xsd",
-            "/xsd/common/leyendasFisc/leyendasFisc.xsd",
-            "/xsd/common/pfic/pfic.xsd",
-            "/xsd/common/TuristaPasajeroExtranjero/TuristaPasajeroExtranjero.xsd",
-            "/xsd/common/spei/spei.xsd",
-            "/xsd/common/detallista/detallista.xsd",
-            "/xsd/common/cfdiregistrofiscal/cfdiregistrofiscal.xsd",
-            "/xsd/common/nomina/v12/nomina12.xsd",
-            "/xsd/common/pagoenespecie/pagoenespecie.xsd",
-            "/xsd/common/valesdedespensa/valesdedespensa.xsd",
-            "/xsd/common/consumodecombustibles/consumodecombustibles.xsd",
-            "/xsd/common/aerolineas/aerolineas.xsd",
-            "/xsd/common/notariospublicos/notariospublicos.xsd",
-            "/xsd/common/vehiculousado/vehiculousado.xsd",
-            "/xsd/common/servicioparcialconstruccion/servicioparcialconstruccion.xsd",
-            "/xsd/common/renovacionysustitucionvehiculos/renovacionysustitucionvehiculos.xsd",
-            "/xsd/common/certificadodedestruccion/certificadodedestruccion.xsd",
-            "/xsd/common/obrasarteantiguedades/obrasarteantiguedades.xsd",
-            "/xsd/common/ine/v11/INE11.xsd",
-            "/xsd/common/ComercioExterior/v11/ComercioExterior11.xsd",
-            "/xsd/common/Pagos/Pagos10.xsd",
-            "/xsd/common/iedu/iedu.xsd",
-            "/xsd/common/ventavehiculos/v11/ventavehiculos11.xsd",
-            "/xsd/common/terceros/terceros11.xsd",
-            "/xsd/common/AcreditamientoIEPS/AcreditamientoIEPS10.xsd",
-            "/xsd/common/ecb/ecb.xsd",
-            "/xsd/common/psgcfdsp/psgcfdsp.xsd",
-            "/xsd/common/psgecfd/psgecfd.xsd"
+        "/xsd/common/tdCFDI.xsd",
+        "/xsd/v33/cfdv33.xsd",
+        "/xsd/v33/TimbreFiscalDigitalv11.xsd",
+        "/xsd/common/ecc/v11/ecc11.xsd",
+        "/xsd/common/donat/v11/donat11.xsd",
+        "/xsd/common/divisas/divisas.xsd",
+        "/xsd/common/implocal/implocal.xsd",
+        "/xsd/common/leyendasFisc/leyendasFisc.xsd",
+        "/xsd/common/pfic/pfic.xsd",
+        "/xsd/common/TuristaPasajeroExtranjero/TuristaPasajeroExtranjero.xsd",
+        "/xsd/common/spei/spei.xsd",
+        "/xsd/common/detallista/detallista.xsd",
+        "/xsd/common/cfdiregistrofiscal/cfdiregistrofiscal.xsd",
+        "/xsd/common/nomina/v12/nomina12.xsd",
+        "/xsd/common/pagoenespecie/pagoenespecie.xsd",
+        "/xsd/common/valesdedespensa/valesdedespensa.xsd",
+        "/xsd/common/consumodecombustibles/consumodecombustibles.xsd",
+        "/xsd/common/aerolineas/aerolineas.xsd",
+        "/xsd/common/notariospublicos/notariospublicos.xsd",
+        "/xsd/common/vehiculousado/vehiculousado.xsd",
+        "/xsd/common/servicioparcialconstruccion/servicioparcialconstruccion.xsd",
+        "/xsd/common/renovacionysustitucionvehiculos/renovacionysustitucionvehiculos.xsd",
+        "/xsd/common/certificadodedestruccion/certificadodedestruccion.xsd",
+        "/xsd/common/obrasarteantiguedades/obrasarteantiguedades.xsd",
+        "/xsd/common/ine/v11/INE11.xsd",
+        "/xsd/common/ComercioExterior/v11/ComercioExterior11.xsd",
+        "/xsd/common/Pagos/Pagos10.xsd",
+        "/xsd/common/iedu/iedu.xsd",
+        "/xsd/common/ventavehiculos/v11/ventavehiculos11.xsd",
+        "/xsd/common/terceros/terceros11.xsd",
+        "/xsd/common/AcreditamientoIEPS/AcreditamientoIEPS10.xsd",
+        "/xsd/common/ecb/ecb.xsd",
+        "/xsd/common/psgcfdsp/psgcfdsp.xsd",
+        "/xsd/common/psgecfd/psgecfd.xsd",
+        "/xsd/common/CartaPorte/CartaPorte.xsd"
     };
 
     private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
@@ -232,6 +233,19 @@ public final class CFDv33 implements CFDI {
         m.marshal(document, out);
     }
 
+    public void guardar(OutputStream out, String... otherSchemas) throws Exception {
+        Marshaller m = this.context.createMarshaller();
+        m.setProperty("com.sun.xml.bind.namespacePrefixMapper", new NamespacePrefixMapperImpl(this.localPrefixes));
+        m.setProperty("jaxb.fragment", Boolean.TRUE);
+        m.setProperty("jaxb.formatted.output", Boolean.TRUE);
+        m.setProperty("jaxb.schemaLocation", "http://www.sat.gob.mx/cfd/3  http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd");
+        for (String schema : otherSchemas) {
+            m.setProperty("jaxb.schemaLocation", m.getProperty("jaxb.schemaLocation") + " " + schema);
+        }
+        byte[] xmlHeaderBytes = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>".getBytes("UTF8");
+        out.write(xmlHeaderBytes);
+        m.marshal(this.document, out);
+    }
 
     //Se implementó este método para que agregue los esquemas de manera automática (solo hay que enviar los contexts en el constructor)
     //Se deben agregar todos los complementos en todas sus versiones (tambien a todas las versiones de CFDi según sus complementos)
@@ -255,8 +269,12 @@ public final class CFDv33 implements CFDI {
                         if (!schema.contains("http://www.sat.gob.mx/Pagos http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos10.xsd")) {
                             schema += " http://www.sat.gob.mx/Pagos http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos10.xsd";
                         }
+                    } else if (c instanceof mx.bigdata.sat.common.cartaporte.schema.CartaPorte) {
+                        if (!schema.contains("http://www.sat.gob.mx/CartaPorte http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte.xsd")) {
+                            schema = schema + " http://www.sat.gob.mx/CartaPorte http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte.xsd";
+                        }
                     } else {
-                        System.out.println("El complemento " + c + " aún no ha sido declarado.");
+                        System.out.println("El complemento " + c + " a�n no ha sido declarado.");
                     }
                 }
             }
@@ -381,7 +399,7 @@ public final class CFDv33 implements CFDI {
 
     private static JAXBContext getContext(String[] contexts) throws Exception {
         List<String> ctx = Lists.asList(BASE_CONTEXT, contexts);
-        if(!contextMap.containsKey(ctx)) {
+        if (!contextMap.containsKey(ctx)) {
             JAXBContext context = JAXBContext.newInstance(JOINER.join(ctx));
             contextMap.put(ctx, context);
         }

@@ -41,16 +41,15 @@ public final class CFDv2Test {
 
     @BeforeClass
     public static void loadKeys() throws Exception {
-
         key = KeyLoaderFactory.createInstance(
                 KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
-                "resources/certs/CSD_HERMANOS_ANZURES_Ã‘ARVAEZ_SA_DE_CV_HAÃ‘930228SM9_20190617_132920.key",
+                new FileInputStream("src/main/resources/certs/CSD_HERMANOS_ANZURES_ÑARVAEZ_SA_DE_CV_HAÑ930228SM9_20190617_132920.key"),
                 "12345678a"
         ).getKey();
 
         cert = KeyLoaderFactory.createInstance(
                 KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
-                "resources/certs/CSD_HERMANOS_ANZURES_+Ã¦ARVAEZ_SA_DE_CV_HA+Ã¦930228SM9_20190617_132920s.cer"
+                new FileInputStream("src/main/resources/certs/CSD_HERMANOS_ANZURES_ÑARVAEZ_SA_DE_CV_HAÑ930228SM9_20190617_132920s.cer")
         ).getKey();
     }
 
