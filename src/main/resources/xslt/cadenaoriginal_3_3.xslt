@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:cce11="http://www.sat.gob.mx/ComercioExterior11" xmlns:donat="http://www.sat.gob.mx/donat" xmlns:divisas="http://www.sat.gob.mx/divisas" xmlns:implocal="http://www.sat.gob.mx/implocal" xmlns:leyendasFisc="http://www.sat.gob.mx/leyendasFiscales" xmlns:pfic="http://www.sat.gob.mx/pfic" xmlns:tpe="http://www.sat.gob.mx/TuristaPasajeroExtranjero" xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:registrofiscal="http://www.sat.gob.mx/registrofiscal" xmlns:pagoenespecie="http://www.sat.gob.mx/pagoenespecie" xmlns:aerolineas="http://www.sat.gob.mx/aerolineas" xmlns:valesdedespensa="http://www.sat.gob.mx/valesdedespensa" xmlns:consumodecombustibles="http://www.sat.gob.mx/consumodecombustibles" xmlns:notariospublicos="http://www.sat.gob.mx/notariospublicos" xmlns:vehiculousado="http://www.sat.gob.mx/vehiculousado" xmlns:servicioparcial="http://www.sat.gob.mx/servicioparcialconstruccion" xmlns:decreto="http://www.sat.gob.mx/renovacionysustitucionvehiculos" xmlns:destruccion="http://www.sat.gob.mx/certificadodestruccion" xmlns:obrasarte="http://www.sat.gob.mx/arteantiguedades" xmlns:ine="http://www.sat.gob.mx/ine" xmlns:iedu="http://www.sat.gob.mx/iedu" xmlns:ventavehiculos="http://www.sat.gob.mx/ventavehiculos" xmlns:terceros="http://www.sat.gob.mx/terceros" xmlns:pago10="http://www.sat.gob.mx/Pagos" xmlns:detallista="http://www.sat.gob.mx/detallista" xmlns:cartaporte="http://www.sat.gob.mx/CartaPorte">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" 
+                xmlns:cfdi="http://www.sat.gob.mx/cfd/3" 
+                xmlns:cce11="http://www.sat.gob.mx/ComercioExterior11" 
+                xmlns:donat="http://www.sat.gob.mx/donat" 
+                xmlns:divisas="http://www.sat.gob.mx/divisas" 
+                xmlns:implocal="http://www.sat.gob.mx/implocal" 
+                xmlns:leyendasFisc="http://www.sat.gob.mx/leyendasFiscales" 
+                xmlns:pfic="http://www.sat.gob.mx/pfic" 
+                xmlns:tpe="http://www.sat.gob.mx/TuristaPasajeroExtranjero" 
+                xmlns:nomina12="http://www.sat.gob.mx/nomina12" 
+                xmlns:registrofiscal="http://www.sat.gob.mx/registrofiscal" 
+                xmlns:pagoenespecie="http://www.sat.gob.mx/pagoenespecie" 
+                xmlns:aerolineas="http://www.sat.gob.mx/aerolineas" 
+                xmlns:valesdedespensa="http://www.sat.gob.mx/valesdedespensa" 
+                xmlns:consumodecombustibles="http://www.sat.gob.mx/consumodecombustibles" 
+                xmlns:notariospublicos="http://www.sat.gob.mx/notariospublicos" 
+                xmlns:vehiculousado="http://www.sat.gob.mx/vehiculousado" 
+                xmlns:servicioparcial="http://www.sat.gob.mx/servicioparcialconstruccion" 
+                xmlns:decreto="http://www.sat.gob.mx/renovacionysustitucionvehiculos" 
+                xmlns:destruccion="http://www.sat.gob.mx/certificadodestruccion" 
+                xmlns:obrasarte="http://www.sat.gob.mx/arteantiguedades" 
+                xmlns:ine="http://www.sat.gob.mx/ine" 
+                xmlns:iedu="http://www.sat.gob.mx/iedu" 
+                xmlns:ventavehiculos="http://www.sat.gob.mx/ventavehiculos" 
+                xmlns:terceros="http://www.sat.gob.mx/terceros" 
+                xmlns:pago10="http://www.sat.gob.mx/Pagos" 
+                xmlns:detallista="http://www.sat.gob.mx/detallista" 
+                xmlns:cartaporte="http://www.sat.gob.mx/CartaPorte" 
+                xmlns:cartaporte20="http://www.sat.gob.mx/CartaPorte20">
 
   <!-- Con el siguiente método se establece que la salida deberá ser en texto -->
   <xsl:output method="text" version="1.0" encoding="UTF-8" indent="no"/>
@@ -37,8 +65,8 @@
   <xsl:include href="/xslt/cfd/terceros/terceros11.xslt"/>
   <xsl:include href="/xslt/cfd/Pagos/Pagos10.xslt"/>
   <xsl:include href="/xslt/cfd/detallista/detallista.xslt"/>
-  <xsl:include href="/xslt/cfd/CartaPorte/CartaPorte.xslt"/>
-
+  <xsl:include href="/xslt/cfd/CartaPorte/v10/CartaPorte.xslt"/>
+  <xsl:include href="/xslt/cfd/CartaPorte/v20/CartaPorte20.xslt"/>
 	
   <!-- Aquí iniciamos el procesamiento de la cadena original con su | inicial y el terminador || -->
   <xsl:template match="/">|<xsl:apply-templates select="/cfdi:Comprobante"/>||</xsl:template>

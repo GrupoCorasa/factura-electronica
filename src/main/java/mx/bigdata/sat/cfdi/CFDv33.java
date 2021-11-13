@@ -96,7 +96,8 @@ public final class CFDv33 implements CFDI {
         "/xsd/common/ecb/ecb.xsd",
         "/xsd/common/psgcfdsp/psgcfdsp.xsd",
         "/xsd/common/psgecfd/psgecfd.xsd",
-        "/xsd/common/CartaPorte/CartaPorte.xsd"
+        "/xsd/common/CartaPorte/v10/CartaPorte.xsd",
+        "/xsd/common/CartaPorte/v20/CartaPorte20.xsd"
     };
 
     private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
@@ -272,6 +273,10 @@ public final class CFDv33 implements CFDI {
                     } else if (c instanceof mx.bigdata.sat.common.cartaporte.schema.CartaPorte) {
                         if (!schema.contains("http://www.sat.gob.mx/CartaPorte http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte.xsd")) {
                             schema = schema + " http://www.sat.gob.mx/CartaPorte http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte.xsd";
+                        }
+                    } else if (c instanceof mx.bigdata.sat.common.cartaporte.v20.schema.CartaPorte) {
+                        if (!schema.contains("http://www.sat.gob.mx/CartaPorte20 http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte20.xsd")) {
+                            schema = schema + " http://www.sat.gob.mx/CartaPorte20 http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte20.xsd";
                         }
                     } else {
                         System.out.println("El complemento " + c + " aún no ha sido declarado.");

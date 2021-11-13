@@ -10,7 +10,7 @@
     elementFormDefault="qualified" 
     attributeFormDefault="unqualified">
     <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" schemaLocation="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/catCFDI.xsd"/>
-    <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" schemaLocation="./../../common/tdCFDI.xsd"/>
+    <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" schemaLocation="./../../../common/tdCFDI.xsd"/>
     <!--
         <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/ComExt" schemaLocation="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/ComExt/catComExt.xsd"/>
         <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/CartaPorte" schemaLocation="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/CartaPorte/catCartaPorte.xsd"/>
